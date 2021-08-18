@@ -20,9 +20,9 @@ app.use(session({
 
 
 
-
-const user = require('./apis/api_user');
-app.use('/api',user);
+//1100818 ruby mark
+// const user = require('./apis/api_user');
+// app.use('/api',user);
 
 
 

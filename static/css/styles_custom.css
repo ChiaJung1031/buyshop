@@ -1,0 +1,16 @@
+.btn-outline-dark:hover {
+    color: #fff;
+    background-color: #71c09b;
+    border-color: #212529;
+}
+
+.btn-check:checked + .btn-outline-dark, .btn-check:active + .btn-outline-dark, .btn-outline-dark:active, .btn-outline-dark.active, .btn-outline-dark.dropdown-toggle.show {
+    color: #fff;
+    background-color: #0b6a3e;
+    border-color: #212529;
+    }
+
+.bg-dark {
+        --bs-bg-opacity: 1;
+        background-color: #0b6a3e  !important; 
+    }
