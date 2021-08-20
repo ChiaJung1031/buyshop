@@ -23,6 +23,8 @@ app.use(session({
 //1100818 ruby mark
 // const user = require('./apis/api_user');
 // app.use('/api',user);
+const productdtl = require('./apis/api_productdtl');
+app.use('/api',productdtl);
 
 
 
@@ -31,7 +33,12 @@ app.get('/', function(req, res){
     res.render('index');
 });
 
-
+app.get('/index', function(req, res){
+    res.render('index');
+});
+app.get('/productdtl/:id', function(req, res){
+    res.render('productdtl');
+});
 
 
 
