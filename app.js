@@ -19,8 +19,6 @@ app.use(session({
 }))
 
 
-
-
 const user = require('./apis/api_user');
 app.use('/api',user);
 
