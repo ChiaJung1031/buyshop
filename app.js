@@ -19,17 +19,12 @@ app.use(session({
 }))
 
 
-<<<<<<< HEAD
+//apun 08/26 add
+const member = require('./apis/api_member');
+app.use('/api',member);
 
-//1100818 ruby mark
-// const user = require('./apis/api_user');
-// app.use('/api',user);
 const productdtl = require('./apis/api_productdtl');
 app.use('/api',productdtl);
-=======
-const user = require('./apis/api_user');
-app.use('/api',user);
->>>>>>> 71cdea82ba7272b6a300e636ed8d9d70f9ff86fc
 
 
 
@@ -37,12 +32,16 @@ app.use('/api',user);
 app.get('/', function(req, res){
     res.render('index');
 });
-
 app.get('/index', function(req, res){
     res.render('index');
 });
 app.get('/productdtl/:id', function(req, res){
     res.render('productdtl');
+});
+
+//管理者頁面 apun 08/26 add
+app.get('/admin', function(req, res){
+    res.render('admin');
 });
 
 

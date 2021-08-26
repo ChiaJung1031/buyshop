@@ -1,0 +1,22 @@
+.title{
+    margin-left: -40px;
+    font-size: 60px;
+}
+
+.sub_title{
+   font-size: 25px;
+}
+
+.login{
+   margin: 10% 0 0 40%;
+}
+
+.login > input {
+   height: 30px;
+   width: 225px;
+}
+
+.login > button {
+   margin-left: 80px;
+   padding: 10px;
+}
