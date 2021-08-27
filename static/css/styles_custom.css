@@ -1,16 +1,22 @@
-.btn-outline-dark:hover {
-    color: #fff;
+.btn-outline-secondary:hover {
+    color: #212529;
     background-color: #71c09b;
     border-color: #212529;
 }
 
-.btn-check:checked + .btn-outline-dark, .btn-check:active + .btn-outline-dark, .btn-outline-dark:active, .btn-outline-dark.active, .btn-outline-dark.dropdown-toggle.show {
-    color: #fff;
+.btn-check:checked + .btn-outline-secondary, .btn-check:active + .btn-outline-secondary, .btn-outline-secondary:active, .btn-outline-secondary.active, .btn-outline-secondary.dropdown-toggle.show {
+    color: #212529;
     background-color: #0b6a3e;
-    border-color: #212529;
+    border-color: #71c09b;
     }
+
+  .btn-outline-secondary > i {
+        color: #212529;
+        }
 
 .bg-dark {
         --bs-bg-opacity: 1;
         background-color: #0b6a3e  !important; 
     }
+
+ 

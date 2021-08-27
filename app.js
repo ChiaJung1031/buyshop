@@ -19,17 +19,9 @@ app.use(session({
 }))
 
 
-<<<<<<< HEAD
-
-//1100818 ruby mark
 // const user = require('./apis/api_user');
 // app.use('/api',user);
-const productdtl = require('./apis/api_productdtl');
-app.use('/api',productdtl);
-=======
-const user = require('./apis/api_user');
-app.use('/api',user);
->>>>>>> 71cdea82ba7272b6a300e636ed8d9d70f9ff86fc
+
 
 
 
