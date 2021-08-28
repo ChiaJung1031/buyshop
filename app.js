@@ -26,6 +26,8 @@ app.use('/api',member);
 const productdtl = require('./apis/api_productdtl');
 app.use('/api',productdtl);
 
+const createproduct = require('./apis/api_createproduct');
+app.use('/api',createproduct);
 
 
 
@@ -39,10 +41,21 @@ app.get('/productdtl/:id', function(req, res){
     res.render('productdtl');
 });
 
+//後台新增商品頁面
+app.get('/createproduct/sell', function(req, res){
+    res.render('createproduct');
+});
+
 //管理者頁面 apun 08/26 add
 app.get('/admin', function(req, res){
     res.render('admin');
 });
+
+
+
+
+
+
 
 
 

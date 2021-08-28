@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+        <head>
+        <meta charest="utf-8" />
+        <link rel="stylesheet" type="text/css" href="/css/template.css" />
+        <link rel="stylesheet" type="text/css" href="/css/uploadpic.css" />
+        <title>後台管理</title>
+         <!-- indexJS -->
+         <script src="/js/template.js"></script>
+         <script src="/js/uploadpic.js"></script>
+        </head>
+        <body>
+            <div class="cnt">
+                <div class="upload">
+                    <div class="upct">
+                        <div>  
+                            <br><br><br>
+                                <label class="lbl">
+                                    <input type="file" name="file" id="file" style="display:none" accept=".png, .jpg, .jpeg" onchange="uploadpic()"  required=>
+                                    選擇照片
+                                </label>
+                        
+                            <br>  
+                            <br>  
+                            <label class="re">(Up to 6 Photos)</label>
+                        </div>
+                    </div>
+                    <br>  
+                    <br> 
+                    <br> 
+                    <div id="show" class="show"> 
+                    </div>
+                </div>
+    
+                <div class="product">
+                    <div class="info">
+                        <form id="sellfrom">
+                            <div class="st_info">*商品類別</div>
+                            <select name="selects" id="protypeno" required="true">
+                                <option value="" selected>請選擇類別</option>
+                                <option value="g0">類別1</option>
+                                <option value="g1">類別2</option>
+                                <option value="g2">類別3</option>
+                                <option value="g3">類別4</option>
+                               
+                            </select>
+                            <div class="st_info">*商品名稱</div>
+                            <input type="text" id="productname" placeholder="商品名稱"  maxlength="50" required>                    
+                            <div class="st_info">*價格</div>
+                                <input type="text" id="unitprice" placeholder="NT$ 價格" required onkeyup="if(event.keyCode !=37 && event.keyCode != 39)value=value.replace(/\D/g,'')">
+                            <div class="st_info">特價的價格</div>
+                                <input type="text" id="specialprice" placeholder="NT$ 特價的價格" onkeyup="if(event.keyCode !=37 && event.keyCode != 39)value=value.replace(/\D/g,'')">
+                            <div class="st_info">成本價格</div>
+                                <input type="text" id="cost" placeholder="NT$ 成本價格" onkeyup="if(event.keyCode !=37 && event.keyCode != 39)value=value.replace(/\D/g,'')">
+    
+                            <div class="st_info">*商品敘述</div>
+                                <textarea id="intro" placeholder="請描述您所銷售的產品(上限500字)"  required  maxlength="500"></textarea>
+                            <div class="st_info">*庫存數量</div>
+                                <input type="text" id="totalcount" placeholder="請輸入庫存數量" maxlength="3" required onkeyup="if(event.keyCode !=37 && event.keyCode != 39)value=value.replace(/\D/g,'')">
+                            <div class="st_info">*可銷售數量</div>
+                                <input type="text" id="cansalecount" placeholder="請輸入可銷售數量" maxlength="3" required onkeyup="if(event.keyCode !=37 && event.keyCode != 39)value=value.replace(/\D/g,'')">
+                            <div class="btnsave">
+                                 <input type="submit" id="save2" value="save">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </body>
+</html>
