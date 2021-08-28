@@ -19,12 +19,18 @@ app.use(session({
 }))
 
 
+<<<<<<< HEAD
+// const user = require('./apis/api_user');
+// app.use('/api',user);
+
+=======
 //apun 08/26 add
 const member = require('./apis/api_member');
 app.use('/api',member);
 
 const productdtl = require('./apis/api_productdtl');
 app.use('/api',productdtl);
+>>>>>>> 1ffa97a5a7d95eefc30796cf7b8f8695f37e9ce5
 
 const createproduct = require('./apis/api_createproduct');
 app.use('/api',createproduct);
