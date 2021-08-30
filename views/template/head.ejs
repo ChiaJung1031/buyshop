@@ -1,0 +1,59 @@
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>鄉間曉路</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="../css/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+    <link href="../css/styles_custom.css" rel="stylesheet" />
+   <!-- Bootstrap core JS-->
+   <script src="../js/bootstrap.bundle.min.js"></script>
+   
+    <!-- Core theme JS-->
+    <script src="../js/scripts.js"></script>
+     <script src="../js/jquery-1.12.4.min.js"></script> 
+     <script src="../js/popper.min.js"></script> 
+   
+    <script type="text/javascript">
+      $(document).ready(function () {
+          var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+               return new bootstrap.Popover(popoverTriggerEl)
+            })
+    
+            var popover = new bootstrap.Popover(document.querySelector('.btn-popover'), {
+                // container: 'body',
+                trigger: 'hover'
+             
+                })
+
+                console.log(popover)
+            // var popoverTemplate = ['<div class="timePickerWrapper popover">',
+            //                     '<div class="arrow"></div>',
+            //                     '<div class="popover-content">',                                    
+            //                     '</div>',
+            //                 '</div>'].join('');
+  
+            // var content = ['<div class="timePickerCanvas">asfaf asfsadf</div>',
+            //             '<div class="timePickerClock timePickerHours">asdf asdfasf</div>',
+            //             '<div class="timePickerClock timePickerMinutes"> asfa </div>',].join('');
+
+
+            // $('nav').popover({
+            //     selector: '[rel=popover]',
+            //     trigger: 'click',
+            //     content : content,
+            //     template: popoverTemplate,
+            //     placement: "bottom",
+            //     html: true
+            // });
+      })
+            
+    
+        
+    </script>

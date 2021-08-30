@@ -3,10 +3,13 @@ const session=require('express-session')
 const querystring = require('querystring'); 
 const app = express();
 const engine = require('ejs-locals');
+var path = require('path');//1100828 ruby add
 
 
-app.engine('ejs', engine);
-app.set('views', './views');
+//app.engine('ejs', engine);//1100828 ruby mark
+//app.set('views', './views');//1100828 ruby mark
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));//1100828 ruby add
 app.set('view engine', 'ejs');
 app.use(express.json()); 
 app.use(express.static(__dirname + '/static'));
@@ -19,37 +22,27 @@ app.use(session({
 }))
 
 
-<<<<<<< HEAD
 // const user = require('./apis/api_user');
 // app.use('/api',user);
 
-=======
-//apun 08/26 add
-const member = require('./apis/api_member');
-app.use('/api',member);
 
-const productdtl = require('./apis/api_productdtl');
-app.use('/api',productdtl);
->>>>>>> 1ffa97a5a7d95eefc30796cf7b8f8695f37e9ce5
-
-
+const productlist = require('./apis/api_productlist');
+app.use('/api',productlist);
 
 
 app.get('/', function(req, res){
     res.render('index');
 });
+
 app.get('/index', function(req, res){
     res.render('index');
 });
 app.get('/productdtl/:id', function(req, res){
     res.render('productdtl');
 });
-
-//管理者頁面 apun 08/26 add
-app.get('/admin', function(req, res){
-    res.render('admin');
+app.get('/productlist/:typeno', function(req, res){//1100828 ruby add
+    res.render('productlist');
 });
-
 
 
 app.listen(5000, function(){

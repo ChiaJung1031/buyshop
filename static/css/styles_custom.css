@@ -10,7 +10,7 @@
     border-color: #71c09b;
     }
 
-  .btn-outline-secondary > i {
+.btn-outline-secondary > i {
         color: #212529;
         }
 
@@ -19,4 +19,17 @@
         background-color: #0b6a3e  !important; 
     }
 
+.form-control:focus,.form-select:focus {
+        color: #212529;
+        background-color: #fff;
+        border-color: #71c09b;
+        outline: 0;
+        box-shadow: none ;
+       
+      }    
+.form-control,.form-select {
+      border-color: #6c757d;
+       
+      }  
+     
  

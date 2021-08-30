@@ -1,7 +1,80 @@
-<section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            productdtl...
-        </div>
-    </div>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../views/template/head')-%>
+
+    <script src="../js/productlistdtl.js"></script>
+</head>
+    <body>
+        <!-- Navigation-->
+        <%- include('../views/template/nav')-%>
+        <!-- Section-->
+           <!-- Product section-->
+           <section>
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items-center">
+                    <div class="col-md-6">
+                        <div id="divcarousel" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/500x500/dee2e6/6c757d.jpg" alt="..." />
+                              </div>
+                              <div class="carousel-item">
+                                <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/500x500/dee2e6/6c757d.jpg" alt="..." />
+                              </div>
+                              <div class="carousel-item">
+                                <!-- <img src="..." class="d-block w-100" alt="..."> -->
+                                <img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/500x500/dee2e6/6c757d.jpg" alt="..." />
+                              </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#divcarousel" data-bs-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#divcarousel" data-bs-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="visually-hidden">Next</span>
+                            </button>
+                          </div>
+                          
+                       
+                    </div>
+                    <div class="col-md-6">
+                        <!-- <div class="small mb-1">SKU: BST-498</div> -->
+                        <h1 class="display-5 fw-bolder">Elephant Cuppa 環保減塑大象杯2代</h1>
+                        <div class="mb-3">
+                            <span class="fs-3 fw-bold text-danger"> NT$ 199</span> &nbsp;
+                            <span class="text-decoration-line-through text-muted"> NT$ 299</span>
+                           
+                        </div>
+                        <p class="lead">嘖嘖募資突破2000萬，台灣製造高品質！ -極致耐用，底部加厚、更堅韌、更耐用！ -輕鬆清潔，零件一秒拆卸清洗超方便！ -材質升級，材質更耐酸防霧化！ -馬來貘超可愛！</p>
+                        <div class="row">
+                  
+                            <div class="col-auto">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>請選擇數量</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                  </select>
+                       
+                            </div>
+                            <div class="col-auto"> 
+                                <button class="btn btn-outline-secondary flex-shrink-0" type="button">
+                                    <i class="bi-cart-fill me-1"></i>
+                                   加入購物車
+                                </button>
+                              </div>
+                        </div>
+                      
+                    </div>
+                </div>
+               
+            </div>
+        </section>
+       
+       
+          <!-- footer-->
+        <%- include('../views/template/footer')-%>
+    </body>
+</html>
