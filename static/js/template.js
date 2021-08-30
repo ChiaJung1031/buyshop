@@ -2,6 +2,7 @@ window.onload = function(){
     login();
 }
 
+//登入
 function login(){
     let account = document.getElementById("admin_account").value;
     let password = document.getElementById("admin_password").value;
