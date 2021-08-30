@@ -60,3 +60,8 @@ app.get('/createproduct/sell', function(req, res){
 app.get('/admin', function(req, res){
     res.render('admin');
 });
+
+app.listen(5000, function(){
+    console.log('Example app listening at http://localhost:5000')
+  });
+  
