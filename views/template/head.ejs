@@ -15,45 +15,9 @@
    <script src="../js/bootstrap.bundle.min.js"></script>
    
     <!-- Core theme JS-->
-    <script src="../js/scripts.js"></script>
      <script src="../js/jquery-1.12.4.min.js"></script> 
-     <script src="../js/popper.min.js"></script> 
-   
-    <script type="text/javascript">
-      $(document).ready(function () {
-          var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-               return new bootstrap.Popover(popoverTriggerEl)
-            })
-    
-            var popover = new bootstrap.Popover(document.querySelector('.btn-popover'), {
-                // container: 'body',
-                trigger: 'hover'
-             
-                })
-
-                console.log(popover)
-            // var popoverTemplate = ['<div class="timePickerWrapper popover">',
-            //                     '<div class="arrow"></div>',
-            //                     '<div class="popover-content">',                                    
-            //                     '</div>',
-            //                 '</div>'].join('');
-  
-            // var content = ['<div class="timePickerCanvas">asfaf asfsadf</div>',
-            //             '<div class="timePickerClock timePickerHours">asdf asdfasf</div>',
-            //             '<div class="timePickerClock timePickerMinutes"> asfa </div>',].join('');
 
 
-            // $('nav').popover({
-            //     selector: '[rel=popover]',
-            //     trigger: 'click',
-            //     content : content,
-            //     template: popoverTemplate,
-            //     placement: "bottom",
-            //     html: true
-            // });
-      })
-            
-    
-        
+     <script src="../js/nav.js"></script>
+
     </script>

@@ -1,20 +1,11 @@
+<script src="../js/nav.js"></script>
  <!-- Navigation-->
  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="#!"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            
-            <ul class="navbar-nav  mb-2 mb-lg-0 ms-lg-4 me-lg-auto ">
-                <li class="nav-item"><a class="nav-link text-white" aria-current="page" href="../index">首頁</a></li>
-                <li class="nav-item"><a class="nav-link text-white" aria-current="page" href="#!">農產品</a></li>
-                <li class="nav-item"><a class="nav-link text-white" aria-current="page" href="#!">手工工藝</a></li>
-                <li class="nav-item"><a class="nav-link text-white" aria-current="page" href="#!">創意服飾</a></li>
-                <li class="nav-item"><a class="nav-link text-white" aria-current="page" href="#!">創意服飾</a></li>
-                <li class="nav-item"><a class="nav-link text-white" aria-current="page" href="#!">創意服飾</a></li>
-                <li class="nav-item"><a class="nav-link text-white" aria-current="page" href="#!">創意服飾</a></li>
-                <li class="nav-item"><a class="nav-link text-white" aria-current="page" href="#!">創意服飾</a></li>
-                <li class="nav-item"><a class="nav-link text-white" aria-current="page" href="#!">所有分類</a></li>
+            <ul id="ulnav" class="navbar-nav  mb-2 mb-lg-0 ms-lg-4 me-lg-auto ">
 
             </ul>
             
@@ -44,13 +35,9 @@
                       </div>
                 </div>
                 <div class="col-auto"> 
-     
-                            <button class="btn btn-outline-secondary bg-light btn-popover" type="submit" data-bs-placement="bottom" data-bs-toggle="popover"   title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">
-                            <i class="bi-cart-fill me-1"></i>
+                           <button class="btn btn-outline-secondary bg-light" type="submit" > 
+                           <a href="/cart"><i class="bi-cart-fill me-1"></i></a> 
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                   
-                  
-                      
                 </div>
                
               </div>
@@ -59,6 +46,8 @@
         </div>
     </div>
 </nav>
+
+
 
  <!-- LoginModal -->
  <div class="modal fade" id="LoginModal" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">

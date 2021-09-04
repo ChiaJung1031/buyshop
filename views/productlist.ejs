@@ -9,183 +9,106 @@
         <!-- Navigation-->
         <%- include('../views/template/nav')-%>
         <!-- Section-->
+      
         <section>
             <div class="container px-4 px-lg-5 mt-5">
-                <p class="fs-6 mb-3">找到 381 件 "農產品" 商品</p>
+                <p class="fs-6 mb-3">找到 <%=RespData.totalcnt %> 件
+                     <% if (RespData.length > 0) {%>
+                       "<%= RespData[0].categoryname  %>" 
+                    <%}%>   商品</p>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col mb-5">
-                        <div class="card">
-                            <!-- Product image-->
-                            <a class="text-decoration-none"  href="../productdtl/1" title="Elephant Cuppa 環保減塑大象杯2代">
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Elephant Cuppa 環保減塑大象杯2代" />
-                            </a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Elephant Cuppa 環保減塑大象杯2代</h5>
-                                    <!-- Product price-->
-                                    NT$ 299
+                    <% if (RespCode == '0000') { %>                
+                        <% if(RespData.length > 0){ %>
+                            <%  RespData.forEach(function(item) { %>
+                                <div class="col mb-5">
+                                    <div class="card">
+                                        <!-- Product image-->
+                                        <a class="text-decoration-none"  href="../productdtl/<%=item.productno %>" title="<%=item.productname %>">
+                                            <img class="card-img-top" src="<%=item.picpath %>" alt="<%=item.productname %>" />
+                                        </a>
+                                        <!-- Product details-->
+                                        <div class="card-body p-4">
+                                            <div class="text-center">
+                                                <!-- Product name-->
+                                                <h5 class="fw-bolder"><%=item.productname %></h5>
+                                                <!-- Product price-->
+                                                <% if(item.specialprice > 0){ %>
+                                                <span class="text-muted text-decoration-line-through"> NT$  <%=item.specialprice %></span>
+                                                <% } %>
+                                                NT$ <%=item.unitprice %>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
                                 </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card">
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">特價</div>
-                            <!-- Product image-->
-                            <a class="text-decoration-none"  href="../productdtl/1" title="Elephant Cuppa 環保減塑大象杯2代">
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Elephant Cuppa 環保減塑大象杯2代" />
-                            </a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Elephant Cuppa 環保減塑大象杯2代</h5>
-                                    <!-- Product price-->
-                                   
-                                    <span class="text-muted text-decoration-line-through"> NT$ 299</span>
-                                    NT$ 199
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card">
-                            <!-- Product image-->
-                            <a class="text-decoration-none"  href="../productdtl/1" title="Elephant Cuppa 環保減塑大象杯2代">
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Elephant Cuppa 環保減塑大象杯2代" />
-                            </a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Elephant Cuppa 環保減塑大象杯2代</h5>
-                                    <!-- Product price-->
-                                    NT$ 299
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card">
-                            <!-- Product image-->
-                            <a class="text-decoration-none"  href="../productdtl/1" title="Elephant Cuppa 環保減塑大象杯2代">
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Elephant Cuppa 環保減塑大象杯2代" />
-                            </a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Elephant Cuppa 環保減塑大象杯2代</h5>
-                                    <!-- Product price-->
-                                    NT$ 299
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card">
-                            <!-- Product image-->
-                            <a class="text-decoration-none"  href="../productdtl/1" title="Elephant Cuppa 環保減塑大象杯2代">
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Elephant Cuppa 環保減塑大象杯2代" />
-                            </a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Elephant Cuppa 環保減塑大象杯2代</h5>
-                                    <!-- Product price-->
-                                    NT$ 299
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card">
-                            <!-- Product image-->
-                            <a class="text-decoration-none"  href="../productdtl/1" title="Elephant Cuppa 環保減塑大象杯2代">
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Elephant Cuppa 環保減塑大象杯2代" />
-                            </a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Elephant Cuppa 環保減塑大象杯2代</h5>
-                                    <!-- Product price-->
-                                    NT$ 299
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card">
-                            <!-- Product image-->
-                            <a class="text-decoration-none"  href="../productdtl/1" title="Elephant Cuppa 環保減塑大象杯2代">
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Elephant Cuppa 環保減塑大象杯2代" />
-                            </a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Elephant Cuppa 環保減塑大象杯2代</h5>
-                                    <!-- Product price-->
-                                    NT$ 299
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card">
-                            <!-- Product image-->
-                            <a class="text-decoration-none"  href="../productdtl/1" title="Elephant Cuppa 環保減塑大象杯2代">
-                                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="Elephant Cuppa 環保減塑大象杯2代" />
-                            </a>
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Elephant Cuppa 環保減塑大象杯2代</h5>
-                                    <!-- Product price-->
-                                    NT$ 299
-                                </div>
-                            </div>
-                        
-                        </div>
-                    </div>
+                             <% }) %>
+                         
+                        <% } else { %>
+                              查無資料
+                        <% } %>
+                           
+                    <% } else { %>   
+                          發生錯誤請稍後在試 。
+
+                    <% } %>
+                          
                    
                 </div>
 
             </div>
             <!-- Page-->
+
+        <% if (RespCode == '0000') { %> 
+            <% if(RespData.length > 0){ %>
             <div class="d-flex justify-content-center">
                 <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group me-2" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-outline-secondary"><</button>
-                    <button type="button" class="btn btn-outline-secondary">1</button>
-                    <button type="button" class="btn btn-outline-secondary">2</button>
-                    <button type="button" class="btn btn-outline-secondary">3</button>
-                    <button type="button" class="btn btn-outline-secondary">4</button>
-                    <button type="button" class="btn btn-outline-secondary">></button>
+                <% if(RespData.totalpage > 3 ) { %>
+                    <input type="text" id ="txtnowpage" class="d-none" value="<%=RespData.nowpage %>" />
+                    <input type="text" id ="txttotalpage"  class="d-none"  value="<%=RespData.totalpage %> "/>
+                    <button type="button" class="btn btn-outline-secondary" onclick="prePage()" ><</button> 
+                <% } %>
+                <%  let front = false; %>
+                <%  for(i=0;i < RespData.totalpage ;i++){ %>
+                    <% if(((i+1) >=  parseInt(RespData.nowpage ,10) - 2) && ((i+1) <= parseInt(RespData.nowpage ,10) + 2) ) {%>
+                        <% if(parseInt(RespData.nowpage ,10) == (i+1) ) {%>
+                            <button type="button" class="btn btn-outline-secondary active" onclick="changePage('<%= i+1 %>')"><%= i+1  %></button>
+                         <% } else{ %> 
+                             <button type="button" class="btn btn-outline-secondary" onclick="changePage('<%= i+1 %>')" ><%= i+1  %></button>
+                         <% } %> 
+                    <% } else{ %> 
+                        <% if(i == 0 && front == false ){ %>
+                           <p class="fs-6 m-1">....</p> 
+                           <% front = true; %>  
+                        <% } %>  
+                        <% if((i+1) > parseInt(RespData.nowpage ,10) + 2){ %>
+                            <p class="fs-6 m-1">....</p> 
+                          <% break;%>  
+                       <% } %>  
+
+                    <% } %> 
+                <% } %> 
+                <% if(RespData.totalpage > 3 ) { %>
+                    <button type="button" class="btn btn-outline-secondary"  onclick="nextPage()">></button>
+                <% } %>
+                   
                 </div>
                 <div class="btn-group me-2" role="group">
+                <% if(RespData.totalpage > 3 ) { %>    
                     <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    前往頁面
+                      第  <%= RespData.nowpage %> 頁
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    <li><a class="dropdown-item" href="#">1</a></li>
-                    <li><a class="dropdown-item" href="#">2</a></li>
+                <%  for(i=0;i < RespData.totalpage ;i++){ %>
+                    <li><a class="dropdown-item" onclick="changePage('<%= i+1 %>')" ><%= i+1  %></a></li>
+                <% } %> 
                     </ul>
+                <% } %>
                 </div>
             </div>
            </div>
+           <% } %>
+         <% } %>
         </section>
           <!-- footer-->
         <%- include('../views/template/footer')-%>

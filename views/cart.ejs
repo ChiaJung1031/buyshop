@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../views/template/head')-%>
+
+    <script src="../js/productlistdtl.js"></script>
+</head>
+    <body>
+        <!-- Navigation-->
+        <%- include('../views/template/nav')-%>
+           <!-- Cart section-->
+           <section>
+            <div class="container px-4 px-lg-5 my-5">
+              <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="list-group">
+                      <% products.forEach(function(product){ %>
+                            <div class="list-group-item border">
+                              <strong><%= product.title %></strong>
+                              <span class="badge price-cart"><%= product.price %> </span>
+                              <div class="btn-group">
+                                  <button type="button" class="btn btn-raised btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Action
+                                  </button>
+                                  <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="cart/reduce/<%=product._id %>">Reduce by 1</a>
+                                      <a class="dropdown-item" href="cart/remove/<%=product._id %>">Remove All</a>
+                                  </div>
+                              </div>
+                              <span class="total"><%= product.qty %></span>
+                          </div>
+                        <%  }) %>
+                     
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <strong>Total: <%=totalPrice %></strong>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <a href="/checkout" class="btn btn-raised  btn-success">Checkout</a>
+                </div>
+            </div>
+               
+            </div>
+        </section>
+       
+       
+          <!-- footer-->
+        <%- include('../views/template/footer')-%>
+    </body>
+</html>

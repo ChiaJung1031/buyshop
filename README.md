@@ -26,3 +26,11 @@
 9.app.js 修改 & 新增對應的get 頁面 & api
 
 
+9/4 ruby
+1.sql連線字串修改為放 .env 檔案,所以本機測試的話需額外在建立這個檔案
+2.sql連線字串改參考 config/conn.js
+3.新增 log 模組 utility/log4js.js,如需產生新的log檔案，請到這隻設定地方再附加上去
+4.新增product 相關模組 module/product.js 、 DAO/sql_product.js ，產品相關的這兩隻前後台可共用
+5.目前整個程式開發流程部分可用MVC的方式 直接根據URL呼叫對應的API回傳資料給view呈現
+  範例可參考 productlist.ejs 這個頁面
+  **要整個網頁reload的才用這種方式，如不要就照原本的 fetch 方式就可以

@@ -5,6 +5,7 @@ const app = express();
 const engine = require('ejs-locals');
 var path = require('path');//1100828 ruby add
 
+
 // app.engine('ejs', engine);//1100828 ruby mark
 // app.set('views', './views');//1100828 ruby mark
 app.set('views', path.join(__dirname, 'views'));//1100828 ruby add
@@ -29,12 +30,18 @@ app.use(session({
 // const member = require('./apis/api_member');
 // app.use('/api',member);
 
-const productdtl = require('./apis/api_productdtl');
-app.use('/api',productdtl);
+
+
+const product = require('./apis/api_product');//1100901 ruby add
+app.use('/',product);
+const cart = require('./apis/api_cart');
+app.use('/',cart);
 
 
 const createproduct = require('./apis/api_createproduct');
 app.use('/api',createproduct);
+
+
 
 
 //前台頁面
@@ -44,12 +51,7 @@ app.get('/', function(req, res){
 app.get('/index', function(req, res){
     res.render('index');
 });
-app.get('/productdtl/:id', function(req, res){
-    res.render('productdtl');
-});
-app.get('/productlist/:typeno', function(req, res){//1100828 ruby add
-    res.render('productlist');
-});
+
 
 //後台新增商品頁面
 app.get('/createproduct/sell', function(req, res){
