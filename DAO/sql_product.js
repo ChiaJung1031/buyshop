@@ -1,7 +1,8 @@
 const dateFormat = require("dateformat");
+const mysql = require("mysql2");
 
-
-const conn = require('../config/conn.js');//　載入conn.js模組
+const config = require('../config/conn.js');//　載入conn.js模組
+const conn = mysql.createPool(config);
 
 
 //載入各商品資料
@@ -131,13 +132,13 @@ exports.get_productdtl = function(req)
 {
     return new Promise(function(resolve,reject)
     {   
-   
-            let offsetnum =  (req["pagesize"] * req["nowpage"]) - req["pagesize"];
-            let select_sql= "select a1.productno,a1.productname,a1.intro,a1.picpath,a1.unitprice,a1.specialprice,a1.cansalecount,b2.name as categoryname";
+        
+        
+            let select_sql= "select a1.productno,a1.productname,a1.intro,a1.picpath,a1.unitprice,a1.specialprice,a1.cansalecount,b2.name as categoryname,a1.cost ";
             select_sql += " from product a1 ";
             select_sql += " left join category b2 on (a1.categoryno = b2.categoryno)";
             select_sql += " where a1.productno ='"+ req["productno"] +"'"
-
+          
             let resultobj= {};
             let respdata=[];
             let respdesc ="";

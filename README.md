@@ -34,3 +34,7 @@
 5.目前整個程式開發流程部分可用MVC的方式 直接根據URL呼叫對應的API回傳資料給view呈現
   範例可參考 productlist.ejs 這個頁面
   **要整個網頁reload的才用這種方式，如不要就照原本的 fetch 方式就可以
+
+9/12
+1.新增購物車相關功能(api_cart.js) 、產生訂單相關功能(api_order.js)、取會員資料功能(api_member.js)
+2.修改 app.js 修改為限制session 30分鐘過期，secret 改為抓  process.env

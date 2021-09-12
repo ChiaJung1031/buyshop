@@ -3,55 +3,93 @@
 <head>
     <%- include('../views/template/head')-%>
 
-    <script src="../js/productlistdtl.js"></script>
+    <script src="../js/cart.js"></script>
+    
 </head>
     <body>
         <!-- Navigation-->
         <%- include('../views/template/nav')-%>
            <!-- Cart section-->
            <section>
-            <div class="container px-4 px-lg-5 my-5">
-              <div class="row gx-4 gx-lg-5 align-items-center">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <div class="list-group">
-                      <% products.forEach(function(product){ %>
-                            <div class="list-group-item border">
-                              <strong><%= product.title %></strong>
-                              <span class="badge price-cart"><%= product.price %> </span>
-                              <div class="btn-group">
-                                  <button type="button" class="btn btn-raised btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Action
-                                  </button>
-                                  <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="cart/reduce/<%=product._id %>">Reduce by 1</a>
-                                      <a class="dropdown-item" href="cart/remove/<%=product._id %>">Remove All</a>
-                                  </div>
-                              </div>
-                              <span class="total"><%= product.qty %></span>
-                          </div>
-                        <%  }) %>
-                     
+            <div class="container px-4 px-lg-5 mt-5" id="zero-pad">
+                <% if (RespCode == '0000') { %> 
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-10 col-12 pt-3">
+                        <div class="p-4 d-flex justify-content-center align-items-center">
+                           <div class="d-flex flex-row align-items-center"> <span class="circle circle-final"><small>1</small></i></span> <span class="ms-1 fw-bolder">確認購物車</span> </div>  <!--<i class="bi bi-check-lg"></i> -->
+                            <div class="d-flex flex-row align-items-center ms-4"> <span class="circle"><small>2</small> </i></span> <span class="ms-1">填寫資料</span> </div>
+                            <div class="d-flex flex-row align-items-center ms-4"> <span class="circle"><small>3</small></span> <span class="ms-1">完成訂購</span> </div>
+                        </div>
+                        <%  for(i=0;i < RespData.products.length ;i++){ %>
+                        <div class="row align-items-center pt-lg-4 pt-2 pb-3 border-bottom  products-<%=RespData.products[i].id%>">
+                            <input type="text"  class="d-none prdct-cansalecount-<%= RespData.products[i].id %>" value="<%= RespData.products[i].cansalecount %>" />
+                            <div class="col-2 col-md-3">
+                                <img src="<%= RespData.products[i].picpath %>" width="150" height="150" alt="" id="image">
+                               
+                            </div>
+                            <div class="col-3 col-md-2 pl-md-0 pl-1">
+                                <div>
+                                  
+                                    <a target="_blank" href="/productdtl/<%=RespData.products[i].productno %>" class="soldOut"><%= RespData.products[i].productname %></a>
+                                   
+                                </div>
+                                <div><span class="pl-2"><%= RespData.products[i].intro %></span></div>
+            
+                            </div>
+                            <!-- <div class="pl-md-0 pl-1"><b><%= RespData.products.unitprice %></b></div> -->
+                            <div class="col-2 col-md-2 pl-md-0 pl-1">
+                                <% if(parseInt(RespData.products[i].specialprice ,10)  > 0 ) { %>
+                                <div class="fw-bold text-danger prdct-unitprice-<%= RespData.products[i].id %>"> $ <%=RespData.products[i].specialprice %></div> 
+                                <div class="text-decoration-line-through text-muted"> $ <%=RespData.products[i].unitprice %></div>
+                                <% } else { %>
+                                    <div class="fw-bold text-danger prdct-unitprice-<%= RespData.products[i].id %>"> $ <%=RespData.products[i].unitprice %></div>
+                              <%}%>
+                            </div>
+                            <div class="col-2 col-md-2 pl-md-0 pl-2"> <span class="bi bi-dash-square" onclick="reducebyOne('<%= RespData.products[i].id %>')"></span><span class="px-md-3 px-1 prdct-qty-<%= RespData.products[i].id %>"><%= RespData.products[i].qty %></span><span class="bi bi-plus-square"  onclick="addbyOne('<%= RespData.products[i].id %>')"></span> </div>
+                            <div class="col-2 col-md-2 pl-md-0 pl-1 fw-bold text-danger">$ <span class="prdct-subtotal-<%= RespData.products[i].id %>"><%= RespData.products[i].subtotal %></span></div>
+                            <div class="col-1 col-md-1 close" onclick="removeItem('<%= RespData.products[i].id %>')"><i class="bi bi-x-lg"></i></div>
+                        </div>
+                        <% } %> 
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <strong>Total: <%=totalPrice %></strong>
+                <% if (RespData.totalQty > 0) { %> 
+                <div class="row d-flex justify-content-center mb-3 py-2 order">
+                        <div class="col-lg-10 col-12 bg-light rounded-bottom ">
+                            <div class="text-end text-end p-1">
+                                <span class="px-md-0 px-1  m-3 "> 共 <span class="order-totalQty"><%=RespData.totalQty %> </span> 件商品</span>
+                                <span class="px-md-0 px-1"> 商品金額</span><span class="px-md-0 px-1" >$ <span class="order-totalPrice"><%=RespData.totalPrice %></span></span>
+                            </div>
+                            <div class="text-end text-end p-1">
+                                <span class="px-md-0 px-1"> 運費</span><span class="px-md-0 px-1 " >$ <span class="order-deliveryfee"><%=RespData.deliveryfee %></span> </span>
+                            </div>
+                            <hr>
+                            <div class="text-end text-end p-1">
+                                <span class="px-md-0 px-1"> 小計 </span><span class="px-md-0 px-1 fw-bold text-danger" >$ <span class="order-ordertotalPrice"><%=RespData.ordertotalPrice %></span></span>
+                            </div>
+                        </div>
                 </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <a href="/checkout" class="btn btn-raised  btn-success">Checkout</a>
-                </div>
-            </div>
+            
                
+                <div class="row d-flex justify-content-center  mb-3">
+                    <div class="col-lg-10 col-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div> <button class="btn btn-sm bg-light border border-dark" onclick="changepage(2)">繼續購物</button> </div>
+                            <div> <button class="btn btn-sm bg-dark text-white px-lg-5 px-3" onclick="changepage(1)">下一步</button> </div>
+                        </div>
+                    </div>
+                </div>
+                <% } else { %>   
+                    您的購物車中沒有商品
+                <% } %> 
+               
+                <% } else { %>   
+                    發生錯誤請稍後在試 。
+                <%}%>
             </div>
+           
+          
         </section>
-       
+        
        
           <!-- footer-->
         <%- include('../views/template/footer')-%>

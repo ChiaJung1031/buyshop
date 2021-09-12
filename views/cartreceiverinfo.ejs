@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../views/template/head')-%>
+
+    <script src="../js/cart.js"></script>
+    
+</head>
+    <body>
+        <!-- Navigation-->
+        <%- include('../views/template/nav')-%>
+           <!-- Cart section-->
+           <section>
+            <div class="container px-4 px-lg-5 mt-5" id="zero-pad">
+                <% if (RespCode == '0000') { %> 
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-10 col-12 pt-3 p-0">
+                        <div class="p-4 d-flex justify-content-center align-items-center">
+                           <div class="d-flex flex-row align-items-center"> <span class="circle bi bi-check-lg"></i></span> <span class="ms-1">確認購物車</span> </div>  
+                            <div class="d-flex flex-row align-items-center ms-4"> <span class="circle circle-final"><small>2</small> </i></span> <span class="ms-1 fw-bolder">填寫資料</span> </div>
+                            <div class="d-flex flex-row align-items-center ms-4"> <span class="circle"><small>3</small></span> <span class="ms-1">完成訂購</span> </div>
+                        </div>
+                        <div class="accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <div class="accordion-button collapsed text-center"" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <span class="px-md-0 px-1"> 本次消費總計 </span><span class="px-md-0 px-1 fw-bold text-danger" >$ <span class="order-ordertotalPrice"><%=RespData.cart.ordertotalPrice %></span></span>
+                                        <span class="px-md-0 px-1 mx-5 "> 總計 <span class="order-totalQty"><%=RespData.cart.totalQty %> </span> 件商品</span>
+                                    </div>
+                                  </h2>
+
+                              <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <%  for(i=0;i < RespData.cart.products.length ;i++){ %>
+                                            <div class="row align-items-center pt-lg-4 pt-2 pb-3 border-bottom products-<%=RespData.cart.products[i].id%>">
+                                                <input type="text"  class="d-none prdct-cansalecount-<%= RespData.cart.products[i].id %>" value="<%= RespData.cart.products[i].cansalecount %>" />
+                                                <div class="col-2 col-md-3">
+                                                    <img src="<%= RespData.cart.products[i].picpath %>" width="150" height="150" alt="" id="image">
+                                                   
+                                                </div>
+                                                <div class="col-3 col-md-2 pl-md-0 pl-1">
+                                                    <div>
+                                                      
+                                                        <a target="_blank" href="/productdtl/<%=RespData.cart.products[i].productno %>" class="soldOut"><%= RespData.cart.products[i].productname %></a>
+                                                       
+                                                    </div>
+                                                    <div><span class="pl-2"><%= RespData.cart.products[i].intro %></span></div>
+                                
+                                                </div>
+                                            
+                                                <div class="col-2 col-md-2 pl-md-0 pl-1">
+                                                    <% if(parseInt(RespData.cart.products[i].specialprice ,10)  > 0 ) { %>
+                                                    <div class="fw-bold text-danger prdct-unitprice-<%= RespData.cart.products[i].id %>"> $ <%=RespData.cart.products[i].specialprice %></div> 
+                                                    <div class="text-decoration-line-through text-muted"> $ <%=RespData.cart.products[i].unitprice %></div>
+                                                    <% } else { %>
+                                                        <div class="fw-bold text-danger prdct-unitprice-<%= RespData.cart.products[i].id %>"> $ <%=RespData.cart.products[i].unitprice %></div>
+                                                  <%}%>
+                                                </div>
+                                                <div class="col-2 col-md-2 pl-md-0 pl-2"> <span class="px-md-3 px-1 prdct-qty-<%= RespData.cart.products[i].id %>"><%= RespData.cart.products[i].qty %></span></div>
+                                                <div class="col-2 col-md-2 pl-md-0 pl-1 fw-bold text-danger">$ <span class="prdct-subtotal-<%= RespData.cart.products[i].id %>"><%= RespData.cart.products[i].subtotal %></span></div>
+                                                <div class="col-1 col-md-1 close" ></div>
+                                            </div>
+                                            <% } %> 
+    
+                                            <div class="row d-flex justify-content-center order">
+                                                <div class="bg-light rounded-bottom ">
+                                                    <div class="text-end text-end p-1">
+                                                        <span class="px-md-0 px-1  m-3 "> 共 <span class="order-totalQty"><%=RespData.cart.totalQty %> </span> 件商品</span>
+                                                        <span class="px-md-0 px-1"> 商品金額</span><span class="px-md-0 px-1" >$ <span class="order-totalPrice"><%=RespData.cart.totalPrice %></span></span>
+                                                    </div>
+                                                    <div class="text-end text-end p-1">
+                                                        <span class="px-md-0 px-1"> 運費</span><span class="px-md-0 px-1 " >$ <span class="order-deliveryfee"><%=RespData.cart.deliveryfee %></span> </span>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="text-end text-end p-1">
+                                                        <span class="px-md-0 px-1"> 小計 </span><span class="px-md-0 px-1 fw-bold text-danger" >$ <span class="order-ordertotalPrice"><%=RespData.cart.ordertotalPrice %></span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                       
+                          </div>                       
+                    </div>
+                </div>
+                <% if (RespData.cart.totalQty > 0) { %> 
+             
+              
+                <div class="row d-flex justify-content-center mb-3">
+                    <div class="col-lg-10 col-12 card p-0">
+                        <div class="card-header">
+                            收件人資訊
+                        </div>
+                        <div class="card-body">
+                            <form class="row g-3" id='orderfrom' action="../order/insert" method="POST">
+                                <div class="col-md-6">
+                                  <label for="txtName" class="form-label">姓名</label>
+                                  <input type="text" class="form-control" name="recptname" value='<%= RespData.receiverinfo[0].name %>'>
+                                </div>
+                                <div class="col-md-6">
+                                  <label for="txttel" class="form-label">手機號碼</label>
+                                  <input type="text" class="form-control" name="recpttel" value='<%= RespData.receiverinfo[0].phonenum %>'>
+                                </div>
+                                <div class="col-12">
+                                  <label for="txtAddress" class="form-label">地址</label>
+                                  <input type="text" class="form-control" name="recptaddr" value='<%= RespData.receiverinfo[0].addr %>' >
+                                </div>
+                              
+                              </form>
+                        </div>
+                      </div>
+                </div>
+               
+                <div class="row d-flex justify-content-center  mb-3">
+                    <div class="col-lg-10 col-12">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div> <button class="btn btn-sm bg-light border border-dark" onclick="changepage(0)">上一步</button> </div>
+                            <div> <button class="btn btn-sm bg-dark text-white px-lg-5 px-3" onclick="orderinsert()">送出</button> </div>
+                        </div>
+                    </div>
+                </div>
+                <% } else { %>   
+                    您的購物車中沒有商品
+                <% } %> 
+               
+                <% } else { %>   
+                    發生錯誤請稍後在試 。
+                <%}%>
+            </div>
+           
+          
+        </section>
+        
+       
+          <!-- footer-->
+        <%- include('../views/template/footer')-%>
+    </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../views/template/head')-%>
+
+    <script src="../js/cart.js"></script>
+    
+</head>
+    <body>
+        <!-- Navigation-->
+        <%- include('../views/template/nav')-%>
+           <!-- Cart section-->
+           <section>
+            <div class="container px-4 px-lg-5 mt-5" id="zero-pad">
+              <% if (RespCode == '0000') { %> 
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-10 col-12 pt-3 p-0">
+                        <div class="p-4 d-flex justify-content-center align-items-center">
+                           <div class="d-flex flex-row align-items-center"> <span class="circle bi bi-check-lg"></i></span> <span class="ms-1">確認購物車</span> </div>  
+                            <div class="d-flex flex-row align-items-center ms-4"> <span class="circle bi bi-check-lg "> </i></span> <span class="ms-1">填寫資料</span> </div>
+                            <div class="d-flex flex-row align-items-center ms-4"> <span class="circle bi bi-check-lg"></span> <span class="ms-1 fw-bolder">完成訂購</span> </div>
+                        </div>
+                        <div class="alert alert-success  text-center" role="alert">
+                          感謝您訂購，以下是您本次購物交易明細
+                   </div>
+                  
+                   <table class="table table-bordered">
+                       <tbody>
+                         <tr class="table-light">
+                           <td>您的訂單編號為</td>
+                           <td><%=RespData.orderno %></td>
+                         </tr>
+                         <tr>
+                           <td>付款方式：</td>
+                           <td>ATM</td>
+                         </tr>
+                         <tr>
+                           <td>銀行代號：</td>
+                           <td>?????(???)</td>
+                         </tr>
+                         <tr>
+                           <td>轉帳帳號：</td>
+                           <td>??????????</td>
+                         </tr>
+                         <tr>
+                           <td>應付金額：</td>
+                           <td><div class="fw-bold text-danger "> $ <%=RespData.ordertotalPrice %></div></td>
+                         </tr>
+                       </tbody>
+                     </table>
+                    </div> 
+                </div>  
+           
+                <% } else { %>   
+                  發生錯誤請稍後在試 。
+              <%}%>
+         
+            </div>
+           
+          
+        </section>
+        
+       
+          <!-- footer-->
+        <%- include('../views/template/footer')-%>
+    </body>
+</html>

@@ -1,5 +1,6 @@
 window.onload = function(){
     load_category();
+    load_cart();
 }
 
 function btnForgetPw_click()
@@ -74,6 +75,11 @@ function hide(id)
     document.getElementById(""+id +"").classList.add("d-none");
 
 }
+function toCartpage()
+{ 
+   window.location.href =  "../cart";
+}
+
 
 //編輯商品
 function load_category(){
@@ -100,3 +106,20 @@ function load_category(){
         console.log(e,",productcategory data失敗內容")
     });
  }
+
+ //取得購物車商品總數量
+ //加入購物車
+function load_cart(){
+
+      fetch("/cart/get", {
+          method:"GET"
+      }).then((response)=>{
+          return response.json();
+      }).then((data)=>{
+            //購物車總數量 + 1
+         console.log(data)
+          document.getElementById('lblcartqty').innerText = data.RespData.totalQty;
+       
+          
+      });
+}

@@ -3,16 +3,16 @@ const session=require('express-session')
 const bomodule = require("../module/product.js")
 
 
-const app = express();
+// const app = express();
 
-app.use(express.json()); 
+// app.use(express.json()); 
 
-app.use(express.urlencoded({extended:false}))
-app.use(session({
-    secret:'keyboard cat',
-    resave:false,
-    saveUninitialized:true
-}))
+// app.use(express.urlencoded({extended:false}))
+// app.use(session({
+//     secret:'keyboard cat',
+//     resave:false,
+//     saveUninitialized:true
+// }))
 const router = express.Router();
 
 
@@ -30,9 +30,9 @@ router.get('/productdtl/:productno',async function(req,res){
    
     let paramsobj = {"productno": req.params.productno };
     let resultobj= await bomodule.get_productdtl(paramsobj);
-    //console.log(resultobj)
-
-    return res.render('productdtl', resultobj);
+    if(resultobj.RespData.length > 0) return res.render('productdtl', resultobj);
+    else res.redirect('../productlist/A?nowpage=1');
+   
  });
 
 
@@ -44,5 +44,6 @@ router.get('/productdtl/:productno',async function(req,res){
     return res.end(JSON.stringify(resultobj))
 
  });
+
 
 module.exports = router;

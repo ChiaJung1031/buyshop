@@ -9,12 +9,16 @@ module.exports.getConfig =  function(baseLogPath)
     let configjson = {
       appenders: { 
             std: { type: "stdout", level: "all", layout:{type: "basic", } },//輸出到終端機
-            product: { type: "DateFile", filename: path.join(baseLogPath,"product.log") ,  encoding: "utf-8" }
+            product: { type: "DateFile", filename: path.join(baseLogPath,"product.log") ,  encoding: "utf-8" },
+            cart :{ type: "DateFile", filename: path.join(baseLogPath,"cart.log") ,  encoding: "utf-8" },
+            order:{ type: "DateFile", filename: path.join(baseLogPath,"order.log") ,  encoding: "utf-8" }
 
         },
       categories: { 
           default: {appenders: ["std"], level: "debug"},
           product: {appenders: ["std", "product"], level: "all"},
+          cart: {appenders: ["std", "cart"], level: "all"},
+          order: {appenders: ["std", "order"], level: "all"}
 
           
         }

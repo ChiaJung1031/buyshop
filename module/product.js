@@ -1,3 +1,4 @@
+const { json } = require("body-parser");
 const dateFormat = require("dateformat");
 const db = require('../DAO/sql_product.js');
 const utlLog = require('../utility/log4js.js');
@@ -7,7 +8,7 @@ const utlLog = require('../utility/log4js.js');
 const pagesize = 8;
 
 exports.get_productlist = async function(paramsobj){
- 
+
             let resultobj= {};
             let respcode="XXXX";
             let respdata=[];
@@ -30,9 +31,9 @@ exports.get_productlist = async function(paramsobj){
               let info = {"typeno": paramsobj.typeno ,"nowpage" : paramsobj.nowpage , "pagesize" : pagesize};
               result = await db.get_productlist(info);
               result = await JSON.parse(result);
-                 
+
              //計算分頁
-               let result2  = await db.get_productCnt(info); 
+               let result2  = await db.get_productCnt(info);
                result2 = await JSON.parse(result2);
 
                let totalpage = (result2.respdata[0].total % pagesize) > 0 ? parseInt(result2.respdata[0].total / pagesize,10) + 1 : parseInt(result2.respdata[0].total / pagesize,10)  ;
@@ -40,21 +41,21 @@ exports.get_productlist = async function(paramsobj){
 
 
               //準備輸出的資料
-                respcode ='0000'; 
+                respcode ='0000';
                 respdata = result.respdata;
                 respdata.totalpage = totalpage;
                 respdata.nowpage = paramsobj.nowpage;
                 respdata.totalcnt = totalcnt;
-                
+
 
             }
             catch(message)
             {
                 respdesc = message;
             }
-           
+
             if(respcode == "XXXX") {
-                //寫入log 
+                //寫入log
                 logger.error("【get_productlist】" + respdesc);
             }
 
@@ -62,14 +63,14 @@ exports.get_productlist = async function(paramsobj){
             resultobj.RespTime = resptime;
             resultobj.RespDesc = respdesc;
             resultobj.RespData = respdata;
-           
+
             return resultobj;
 
- 
+
 };
 
 exports.get_category = async function(paramsobj){
- 
+
   let resultobj= {};
   let respcode="XXXX";
   let respdata=[];
@@ -84,20 +85,20 @@ exports.get_category = async function(paramsobj){
     //撈產品分類資料
       result = await db.get_category();
       result = await JSON.parse(result);
-      
+
 
     //準備輸出的資料
-      respcode ='0000'; 
+      respcode ='0000';
       respdata = result.respdata;
- 
+
   }
   catch(message)
   {
       respdesc = message;
   }
- 
+
   if(respcode == "XXXX") {
-      //寫入log 
+      //寫入log
       logger.error("【get_category】" + respdesc);
   }
 
@@ -112,7 +113,7 @@ exports.get_category = async function(paramsobj){
 };
 
 exports.get_productdtl = async function(paramsobj){
- 
+
   let resultobj= {};
   let respcode="XXXX";
   let respdata=[];
@@ -126,27 +127,29 @@ exports.get_productdtl = async function(paramsobj){
   {
 
 
-   //檢查  productno 是否符合格式 
-   
+   //檢查  productno 是否符合格式
+
 
     //撈產品資料
+
       let info = {"productno": paramsobj.productno};
       result = await db.get_productdtl(info);
       result = await JSON.parse(result);
-
-    //準備輸出的資料
-      respcode ='0000'; 
+    
+      //準備輸出的資料
+      respcode ='0000';
       respdata = result.respdata;
-      respdata.totalpage = totalpage;
+
+      
 
   }
   catch(message)
   {
       respdesc = message;
   }
- 
+
   if(respcode == "XXXX") {
-      //寫入log 
+      //寫入log
       logger.error("【get_productdtl】" + respdesc);
   }
 
@@ -154,7 +157,9 @@ exports.get_productdtl = async function(paramsobj){
   resultobj.RespTime = resptime;
   resultobj.RespDesc = respdesc;
   resultobj.RespData = respdata;
- 
+
+  console.log(resultobj)
+
   return resultobj;
 
 

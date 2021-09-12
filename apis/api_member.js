@@ -1,19 +1,38 @@
-//1100830 ruby mark 因run起來有錯誤先註解掉,有需要用時再打開
-// const express = require('express');
-// const session=require('express-session')
-// const querystring = require('querystring'); 
-// const db = require('../DAO/sql.js');
+const express = require('express');
+const session=require('express-session')
+const bomodule = require("../module/member.js")
+
+
 // const app = express();
+
 // app.use(express.json()); 
+
 // app.use(express.urlencoded({extended:false}))
 // app.use(session({
 //     secret:'keyboard cat',
 //     resave:false,
 //     saveUninitialized:true
 // }))
+const router = express.Router();
 
-// const router = express.Router();
+
+//取得會員資料
+// router.get('/productlist/:typeno',async function(req,res){
+//     //取商品資料
+//     let paramsobj = {"typeno": req.params.typeno ,"nowpage": req.query.nowpage};
+//     let resultobj= await bomodule.get_productlist(paramsobj);
+
+//     return res.render('productlist', resultobj);
+//  });
 
 
-// module.exports = router;
+//取得會員資料
+ router.get('/member/getmemberinfo/:userid',async function(req,res){
 
+    let resultobj= await bomodule.get_memberinfo();   
+    return res.end(JSON.stringify(resultobj))
+
+ });
+
+
+module.exports = router;

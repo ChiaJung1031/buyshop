@@ -4,7 +4,7 @@ const querystring = require('querystring');
 const app = express();
 const engine = require('ejs-locals');
 var path = require('path');//1100828 ruby add
-
+const dotenv = require('dotenv').config();
 
 // app.engine('ejs', engine);//1100828 ruby mark
 // app.set('views', './views');//1100828 ruby mark
@@ -14,10 +14,12 @@ app.use(express.json());
 app.use(express.static(__dirname + '/static'));
 
 app.use(express.urlencoded({extended:false}))
+//1100911 ruby 修改為限制session 30過期，secret改為抓  process.env
 app.use(session({
-    secret:'keyboard cat',
+    secret: process.env.SESSION_SECRET,
     resave:false,
-    saveUninitialized:true
+    saveUninitialized:true,
+    cookie: { maxAge: 600 * 3000 } //30分鐘到期
 }))
 
 
@@ -36,6 +38,9 @@ const product = require('./apis/api_product');//1100901 ruby add
 app.use('/',product);
 const cart = require('./apis/api_cart');
 app.use('/',cart);
+const order = require('./apis/api_order');
+app.use('/',order);
+
 
 
 const createproduct = require('./apis/api_createproduct');

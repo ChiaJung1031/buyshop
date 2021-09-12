@@ -1,36 +1,73 @@
-var express = require('express');
-var router = express.Router();
-const Cart = require('../module/cart');
-console.log('/111');
-router.get('/cart', function (req, res, next) {
-   
-    if(!req.session.cart) {
-        return res.render('cart', {products:{}});
-    }
-    const cart = new Cart(req.session.cart);
-    console.log(cart);
-    return res.render('cart', {products: cart.generateArray(), totalPrice: cart.totalPrice});
+const express = require('express');
+const router = express.Router();
+const bomodule = require('../module/cart');
+
+
+router.get('/cart',async function (req, res) {
+    let paramsobj = {"sessioncart" :req.session.cart };
+    let resultobj= await bomodule.get_cart(paramsobj);
+
+    return res.render('cart', resultobj);
 });
 
-router.get('/cart/add-to-cart/:id', function (req, res) {
-    const body = req.body;
-    console.log(body);
-    const productId = req.params.id;
-    const cart = new Cart(req.session.cart ? req.session.cart : {});
+router.get('/cart/receiverinfo',async function (req, res) { 
 
-    // Product.findById(productId, function (err, product) {
-    //     if(err) {
-    //         return res.redirect('/');
-    //     }
-    
-        const product = {products: cart.generateArray(), totalPrice: cart.totalPrice}
-       // {item: {title:'aaa'}, qty: 1, price: 100};
-        cart.add(product, product.id);
-        req.session.cart = cart;
-       // console.log(req.session.cart);
-         res.redirect('/cart');
-      
-   // })
+    req.session.userid ='aaa@gmail.com.tw';//test
+
+   if(req.session.cart && req.session.cart.length > 0 && req.session.userid )
+    {
+        let paramsobj = {"sessionuserid" :req.session.userid ,"sessioncart" :req.session.cart };
+        let resultobj= await bomodule.get_receiverinfo(paramsobj);
+
+        return res.render('cartreceiverinfo', resultobj);
+   }
+   else
+    {
+       res.redirect('/cart');
+   }
+  
 });
+
+router.get('/cart/get', async function (req, res) {
+    let paramsobj = {"sessioncart" :req.session.cart };
+    let resultobj= await bomodule.get_cart(paramsobj);
+
+   return res.end(JSON.stringify(resultobj))
+});
+router.get('/cart/add/:productno/:qty', async function (req, res) {
+
+    let paramsobj = {"productno": req.params.productno,"qty": req.params.qty,"sessioncart" :req.session.cart };
+    let resultobj= await bomodule.add_cart(paramsobj);
+    req.session.cart = await bomodule.CART_get();
+
+   return res.end(JSON.stringify(resultobj))
+});
+
+router.get('/cart/reducebyOne/:id', async function (req, res) {
+    let paramsobj = {"id": req.params.id,"sessioncart" :req.session.cart };
+    let resultobj= await bomodule.reduce_byOne(paramsobj);
+    req.session.cart = await bomodule.CART_get();
+
+   return res.end(JSON.stringify(resultobj))
+});
+
+router.get('/cart/addbyOne/:id', async function (req, res) {
+
+    let paramsobj = {"id": req.params.id,"sessioncart" :req.session.cart };
+    let resultobj= await bomodule.add_byOne(paramsobj);
+    req.session.cart = await bomodule.CART_get();
+
+   return res.end(JSON.stringify(resultobj))
+});
+
+router.get('/cart/removeItem/:id', async function (req, res) {
+  
+    let paramsobj = {"id": req.params.id,"sessioncart" :req.session.cart };
+    let resultobj= await bomodule.remove_Item(paramsobj);
+    req.session.cart = await bomodule.CART_get();
+
+   return res.end(JSON.stringify(resultobj))
+});
+
 
 module.exports = router;
