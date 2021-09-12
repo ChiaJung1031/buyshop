@@ -38,3 +38,4 @@
 9/12
 1.新增購物車相關功能(api_cart.js) 、產生訂單相關功能(api_order.js)、取會員資料功能(api_member.js)
 2.修改 app.js 修改為限制session 30分鐘過期，secret 改為抓  process.env
+3.修改 config/conn.js 改為只回傳連線的 json ,createPool 改在 dao 做

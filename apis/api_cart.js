@@ -14,7 +14,7 @@ router.get('/cart/receiverinfo',async function (req, res) {
 
     req.session.userid ='aaa@gmail.com.tw';//test
 
-   if(req.session.cart && req.session.cart.length > 0 && req.session.userid )
+   if(req.session.cart && req.session.cart.length > 0 )// && req.session.userid
     {
         let paramsobj = {"sessionuserid" :req.session.userid ,"sessioncart" :req.session.cart };
         let resultobj= await bomodule.get_receiverinfo(paramsobj);
