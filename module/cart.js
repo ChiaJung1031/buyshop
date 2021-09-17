@@ -1,7 +1,7 @@
-const prdct = require('../module/product.js');
-const member = require('../module/member.js')
+const prdct = require('../module/product');
+const member = require('../module/member')
 const dateFormat = require("dateformat");
-const utlLog = require('../utility/log4js.js');
+const utlLog = require('../utility/log4js');
 let cart = [];//cart = [{productno:A01,qty:1,unitprice:100},{productno:A02,qty:1,unitprice:200},totalQty:XXX,totalPrice:XXX]
 let totalQty =0;
 let totalPrice =0;
@@ -109,8 +109,7 @@ module.exports.get_cart = async function(paramsobj){
     resultobj.RespDesc = respdesc;
     resultobj.RespData = respdata;
 
- 
-    console.log(resultobj)
+
 
 
     return resultobj;
@@ -271,12 +270,12 @@ module.exports.get_receiverinfo = async function(paramsobj){
     let logger = log4js.getLogger("cart");
     try
     {
-        let info = {"userid": paramsobj.sessionuserid ,'sessioncart':paramsobj.sessioncart};
+        let info = {"email": paramsobj.sessionuserid ,'sessioncart':paramsobj.sessioncart};
         //購物車的資料 RespData
         let Respcart = await this.get_cart(info);
   
         //會員資料 RespData 
-        let Respmember =await member.get_memberinfo(info)
+        let Respmember =await member.search(info)
     
       //準備輸出的資料
       respdata.cart = Respcart.RespData;
@@ -317,6 +316,8 @@ module.exports.CART_init = function(sessioncart){
          totalPrice =0;
     }
 } 
+
+
 module.exports.CART_get = function(){
   return cart ;
 } 

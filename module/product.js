@@ -1,7 +1,7 @@
 const { json } = require("body-parser");
 const dateFormat = require("dateformat");
-const db = require('../DAO/sql_product.js');
-const utlLog = require('../utility/log4js.js');
+const db = require('../DAO/sql_product');
+const utlLog = require('../utility/log4js');
 
 
 
@@ -158,7 +158,6 @@ exports.get_productdtl = async function(paramsobj){
   resultobj.RespDesc = respdesc;
   resultobj.RespData = respdata;
 
-  console.log(resultobj)
 
   return resultobj;
 

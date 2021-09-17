@@ -1,6 +1,9 @@
 window.onload = function(){
     load_category();
     load_cart();
+    load_member(); //取得會員資料 
+
+    
 }
 
 function btnForgetPw_click()
@@ -39,12 +42,40 @@ function btnForgetPwPrePage_click()
 
 function btnLogin_click()
 {
-    document.getElementById("txtmemberid_login").value ="";
-    document.getElementById("txtpassword_login").value ="";
-    document.getElementById("btnLoginClose").click();
-    document.getElementById("btnLoginClose").click();
-    Show("divMemberInfo")
-    hide("divLoginShow")
+
+    let email = document.getElementById("txtemail_login").value;
+    let password = document.getElementById("txtpassword_login").value;
+    
+    let info = {"email":email, "password":password};
+    
+        hide("divalert_login");
+
+        fetch("/member/login",{
+            method:"POST",   
+            body: JSON.stringify(info),
+            headers: {
+                "Content-Type": "application/json"
+                }
+            }).then((response)=>{
+                return response.json();
+            }).then((data)=>{
+                if(data["RespCode"] == '0000'){
+                    //1.重新整理該頁面 
+                    load_member();
+                    document.getElementById("txtemail_login").value ="";
+                    document.getElementById("txtpassword_login").value ="";
+                    document.getElementById("btnLoginClose").click();
+                }
+                else if(data["RespCode"] == 'XXXX')
+                {
+                    alert("登入失敗，請稍後再試！")
+                }
+                else
+                {
+                     document.getElementById("divalert_login").innerHTML = data["RespDesc"];
+                     Show("divalert_login")
+                }
+            })
    
 }
 function btnLogOut_click()
@@ -79,6 +110,7 @@ function toCartpage()
 { 
    window.location.href =  "../cart";
 }
+
 
 
 //編輯商品
@@ -123,3 +155,72 @@ function load_cart(){
           
       });
 }
+
+//填寫資料完點註冊
+function btnregister_click(){
+    let email = document.getElementById("txtemail").value;
+    let password = document.getElementById("txtpassword").value;
+    let phonenum = document.getElementById("txtphonenum").value;
+    let addr = document.getElementById("txtaddr").value;
+    let name = document.getElementById("txtname").value;
+    
+    let register_info = {
+                    "email":email,
+                    "password":password,
+                    "phonenum":phonenum,
+                    "addr":addr,
+                    "name":name
+                   };
+    
+        hide("divalert");
+
+        fetch("/member/register",{
+            method:"POST",   
+            body: JSON.stringify(register_info),
+            headers: {
+                "Content-Type": "application/json"
+                }
+            }).then((response)=>{
+                return response.json();
+            }).then((data)=>{
+                if(data["RespCode"] == '0000'){
+                    alert("註冊成功，請重新登入！")
+                    btnRegistPrePage_click();
+                }
+                else if(data["RespCode"] == 'XXXX')
+                {
+                    alert("註冊失敗，請稍後再試！")
+                }
+                else
+                {
+                     document.getElementById("divalert").innerHTML = data["RespDesc"];
+                     Show("divalert")
+                }
+            })
+    }
+
+//取得會員資料
+function load_member(){
+
+    fetch("/member/search",{
+        method:"GET"
+    }).then((response)=>{
+        return response.json();
+    }).then((data)=>{
+
+        if(data.RespCode  == '0000')
+        {
+            document.getElementById("btnadmin").innerHTML = data.RespData[0].name;
+            let uladmin=document.getElementById("uladmin");
+            let li_Html ='<li><a class="dropdown-item" href="../order/search">訂單查詢</a></li>';
+                li_Html += '<li><a class="dropdown-item" href="../member/update">會員資料修改</a></li>';
+                li_Html += '<li><hr class="dropdown-divider"></li>';
+                li_Html += '<li><a class="dropdown-item" href="#" id="btnLogOut" onclick="btnLogOut_click()">登出</a></li>';
+           
+           uladmin.innerHTML =li_Html;
+           Show("divMemberInfo")
+           hide("divLoginShow")
+       }
+    }).catch((e) => {
+        console.log(e,",checkislogin 失敗")
+    });}

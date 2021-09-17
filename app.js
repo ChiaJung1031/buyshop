@@ -23,6 +23,13 @@ app.use(session({
 }))
 
 
+//1100916 ruby 每次 req 都跑這裡
+app.use((req, res, next) => {
+    console.log('req.session....')
+    if(!req.session.userid )console.log('req.session.userid is null')
+     
+    next();
+})
 
 // const user = require('./apis/api_user');
 // app.use('/api',user);
@@ -40,6 +47,8 @@ const cart = require('./apis/api_cart');
 app.use('/',cart);
 const order = require('./apis/api_order');
 app.use('/',order);
+const member = require('./apis/api_member');
+app.use('/',member);
 
 
 

@@ -1,38 +1,81 @@
 const express = require('express');
 const session=require('express-session')
-const bomodule = require("../module/member.js")
-
-
-// const app = express();
-
-// app.use(express.json()); 
-
-// app.use(express.urlencoded({extended:false}))
-// app.use(session({
-//     secret:'keyboard cat',
-//     resave:false,
-//     saveUninitialized:true
-// }))
+const bomodule = require("../module/member")
+const check = require("../check/check_member")
 const router = express.Router();
 
 
 //取得會員資料
-// router.get('/productlist/:typeno',async function(req,res){
-//     //取商品資料
-//     let paramsobj = {"typeno": req.params.typeno ,"nowpage": req.query.nowpage};
-//     let resultobj= await bomodule.get_productlist(paramsobj);
+ router.get('/member/search',async function(req,res){
 
-//     return res.render('productlist', resultobj);
-//  });
+  let resultobj = {};
+  let paramsobj = {
+    "email": req.session.userid,
+    "name": req.session.username
+  };
 
+  let check_resultobj = await check.search(paramsobj);
 
-//取得會員資料
- router.get('/member/getmemberinfo/:userid',async function(req,res){
+    if(check_resultobj.RespCode == '0000') 
+    {
+      resultobj= await bomodule.search(paramsobj);
+    }
+    else resultobj = check_resultobj;  
+    
+    console.log(resultobj)
 
-    let resultobj= await bomodule.get_memberinfo();   
     return res.end(JSON.stringify(resultobj))
 
  });
+
+ //註冊會員資料
+ router.post('/member/register',async function (req, res) { 
+
+         let resultobj = {};
+         let paramsobj = {
+           "email": req.body.email,
+           "password": req.body.password,
+           "phonenum": req.body.phonenum,
+           "addr": req.body.addr,
+           "name": req.body.name
+         };
+ 
+         let check_resultobj = await check.register(paramsobj);
+
+         if(check_resultobj.RespCode == "0000") resultobj= await bomodule.register(paramsobj);
+         else resultobj = check_resultobj;
+         
+       
+
+         return res.end(JSON.stringify(resultobj))
+   
+ });
+
+ //會員登入
+ router.post('/member/login',async function(req,res){
+
+   let paramsobj = {
+      "email": req.body.email,
+      "password": req.body.password,
+    };
+
+    let check_resultobj = await check.login(paramsobj);
+
+    if(check_resultobj.RespCode == '0000') 
+    {
+      resultobj= await bomodule.login(paramsobj);
+      req.session.userid = resultobj.RespData.member.email;
+      req.session.username = resultobj.RespData.member.name;
+    }
+    else resultobj = check_resultobj;
+    
+
+    return res.end(JSON.stringify(resultobj))
+
+ });
+
+
+
 
 
 module.exports = router;

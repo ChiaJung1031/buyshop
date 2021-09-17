@@ -11,20 +11,13 @@ router.get('/cart',async function (req, res) {
 });
 
 router.get('/cart/receiverinfo',async function (req, res) { 
+    console.log('/cart/receiverinfo')
+    console.log(req.session.userid )
+    let paramsobj = {"sessionuserid" :req.session.userid ,"sessioncart" :req.session.cart };
+    let resultobj= await bomodule.get_receiverinfo(paramsobj);
 
-    req.session.userid ='aaa@gmail.com.tw';//test
-
-   if(req.session.cart && req.session.cart.length > 0 )// && req.session.userid
-    {
-        let paramsobj = {"sessionuserid" :req.session.userid ,"sessioncart" :req.session.cart };
-        let resultobj= await bomodule.get_receiverinfo(paramsobj);
-
-        return res.render('cartreceiverinfo', resultobj);
-   }
-   else
-    {
-       res.redirect('/cart');
-   }
+   if(resultobj.RespData.cart.products.length > 0 )return res.render('cartreceiverinfo', resultobj);
+   else  res.redirect('/cart');
   
 });
 

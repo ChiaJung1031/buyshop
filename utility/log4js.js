@@ -11,14 +11,15 @@ module.exports.getConfig =  function(baseLogPath)
             std: { type: "stdout", level: "all", layout:{type: "basic", } },//輸出到終端機
             product: { type: "DateFile", filename: path.join(baseLogPath,"product.log") ,  encoding: "utf-8" },
             cart :{ type: "DateFile", filename: path.join(baseLogPath,"cart.log") ,  encoding: "utf-8" },
-            order:{ type: "DateFile", filename: path.join(baseLogPath,"order.log") ,  encoding: "utf-8" }
-
+            order:{ type: "DateFile", filename: path.join(baseLogPath,"order.log") ,  encoding: "utf-8" },
+            member:{ type: "DateFile", filename: path.join(baseLogPath,"member.log") ,  encoding: "utf-8" }
         },
       categories: { 
           default: {appenders: ["std"], level: "debug"},
           product: {appenders: ["std", "product"], level: "all"},
           cart: {appenders: ["std", "cart"], level: "all"},
-          order: {appenders: ["std", "order"], level: "all"}
+          order: {appenders: ["std", "order"], level: "all"},
+          member: {appenders: ["std", "member"], level: "all"},
 
           
         }

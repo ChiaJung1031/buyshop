@@ -39,3 +39,14 @@
 1.新增購物車相關功能(api_cart.js) 、產生訂單相關功能(api_order.js)、取會員資料功能(api_member.js)
 2.修改 app.js 修改為限制session 30分鐘過期，secret 改為抓  process.env
 3.修改 config/conn.js 改為只回傳連線的 json ,createPool 改在 dao 做
+
+
+9/17
+1.新增 utility 資料夾放共用function,總共新增三隻
+        utility/dbhelp.js  : Dao 連資料庫統一引用這隻
+        utility/encrypt.js : 密碼加密用這隻
+        utility/util.js  : 共用的檢核規則用這隻
+2.新增訂單查詢功能
+3.新增check資料夾 放api檢核欄位相關檔案
+       
+       

@@ -1,46 +1,48 @@
-const dateFormat = require("dateformat");
-const mysql = require("mysql2");
+// const dateFormat = require("dateformat");
+// const mysql = require("mysql2");
 
-const config = require('../config/conn.js');//　載入conn.js模組
-const conn = mysql.createPool(config);
+// const config = require('../config/conn.js');//　載入conn.js模組
+// const conn = mysql.createPool(config);
+const dbhelp = require("../utility/dbhelp");
 
-//載入各商品資料
-exports.get_memberinfo = function(req)
+//取得會員資料
+exports.get_member_by_email = async function(req)
 {
-    return new Promise(function(resolve,reject)
-    {   
-   
 
-            let select_sql= "select name,addr,phonenum from member where email = '" + req["userid"] +"'";
+    let select_sql= "select name,addr,phonenum from member where email = ? ";
+    let array_param = [req["email"]]
+            
+    let resultobj =  await dbhelp.executequery(select_sql,array_param);
 
-            let resultobj= {};
-            let respdata=[];
-            let respdesc ="";
+    return resultobj;
 
-            conn.query(select_sql, function(err, results, fields)
-            {  
-                if (err) 
-                { 
-                    respdesc = err;
-
-                    resultobj.respdesc = respdesc;
-                    resultobj.respdata = respdata;
-                   
-                    reject(JSON.stringify(resultobj))//執行後 會直接跑到上一層的 catch
-                
-                }
-                else 
-                { 
-                    respdata = results;
-
-                    resultobj.respdesc = respdesc;
-                    resultobj.respdata = respdata;
-
-                    resolve(JSON.stringify(resultobj))
-                  
-                }
-            });
-
-         
-    });
 }
+
+//取得會員資料
+exports.get_member_by_email_pw = async function(req)
+{
+    console.log(req)
+    let select_sql= "select email,name from member where email = ? and password = ? ";
+    let array_param = [req["email"],req["password"]]
+            
+    let resultobj =  await dbhelp.executequery(select_sql,array_param);
+
+    return resultobj;
+
+}
+
+//會員註冊
+exports.insert_member = async function(req)
+{
+  
+    let  insert_sql= "INSERT INTO member(email,password,name,phonenum,addr,createdatetime,updatetime) VALUES(?,?,?,?,?,?,?) "
+            
+    let insert_val = [req["email"],req["password"],req["name"],req["phonenum"],
+                              req["addr"],req["createdatetime"],req["updatetime"]];
+
+    let resultobj =  await dbhelp.executequery(insert_sql,insert_val);
+    
+
+    return resultobj;
+}
+
