@@ -1,0 +1,129 @@
+<style>
+    .title{
+        font-size: 30px;
+      }
+      /*  table-outbox
+------------------------------------- */
+.table-outbox {
+    margin-top: 15px;
+  }
+  
+  /*  table
+  ------------------------------------- */
+  table {
+    border-collapse: collapse; /* 表格邊框合併 */
+    width: 315px; 
+    background-color: white; /* 背景白色 */
+    margin-bottom: 220px;
+  }
+  
+  table thead th {
+    color: #ffffff; /* 表頭文字白色 */
+    background: #2f4961a3; /* 表頭背景白色 */
+  }
+  
+  table td,
+  table th {
+    text-align: center; /* 文字置中顯示 */
+    padding: 10px; /* 添加內距 */
+  }
+  
+  table td {
+    border-right: 1px solid #f1f1f1; /* 表格 td 右邊框顏色 */
+  }
+  
+  table tr:nth-child(even) {
+    background: #f8f8f8; /* 表格偶數 tr 灰色背景 */
+  }
+    
+</style>
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charest="utf-8" />
+             <!-- adminCSS -->
+            <link rel="stylesheet" type="text/css" href="/css/admin_createproduct.css" />
+            <title>後台管理</title>
+            <!-- adminJS -->
+            <script src="/js/admin_searchproduct.js"></script>
+       
+        </head>
+        <body>
+          <input type="submit" id="menu" value="回目錄"><br><br>
+            <div id="searchbox">
+                <div class="login">
+                    <label class="title">商品查詢</label><br><br><br><br>
+                    <!--刪除分類-->       
+                    <label class="">※商品查詢規則：<br>
+                            1.請輸入【商品編號】，並且點選【查詢】按鈕
+                    </label><br><br>
+                            <input type="text" id="search_id" placeholder="請輸入商品編號" required> &nbsp
+                    <button onclick="search()">查詢</button><br><br>
+                </div>
+            </div>
+
+
+            <div id="modifybox">
+                <div class="cnt">
+                  <div class="upload">
+                      <div class="upct">
+                          <div>  
+                              <br><br><br>
+                              <label class="lbl">
+                                  <input type="file" name="file" id="file" style="display:none" accept=".png, .jpg, .jpeg" onchange="uploadpic()"  required=>
+                                  選擇照片
+                              </label>
+                              <br>  
+                              <br>  
+                              <label class="re">(Up to 6 Photos)</label>
+                          </div>
+                      </div>
+                      <br>  
+                      <br> 
+                      <br> 
+                      <div id="show" class="show"> 
+                      </div>
+                  </div>
+      
+                  <div class="product">
+                      <div class="info">
+                          <form id="sellfrom">
+                            <div class="st_info">商品編號</div>
+                            <input type="text" id="productno" disabled="disabled">                    
+                              <div class="st_info">*商品類別</div>
+                              <select name="selects" id="protypeno" required="true">
+                                  <option value="" selected>請選擇類別</option>
+                                  <option value="g0">類別1</option>
+                                  <option value="g1">類別2</option>
+                                  <option value="g2">類別3</option>
+                                  <option value="g3">類別4</option>
+                                
+                              </select>
+                              <div class="st_info">*商品名稱</div>
+                              <input type="text" id="productname" placeholder="商品名稱"  maxlength="50" required>                    
+                              <div class="st_info">*價格</div>
+                                  <input type="text" id="unitprice" placeholder="NT$ 價格" required onkeyup="if(event.keyCode !=37 && event.keyCode != 39)value=value.replace(/\D/g,'')">
+                              <div class="st_info">特價的價格</div>
+                                  <input type="text" id="specialprice" placeholder="NT$ 特價的價格" onkeyup="if(event.keyCode !=37 && event.keyCode != 39)value=value.replace(/\D/g,'')">
+                              <div class="st_info">成本價格</div>
+                                  <input type="text" id="cost" placeholder="NT$ 成本價格" onkeyup="if(event.keyCode !=37 && event.keyCode != 39)value=value.replace(/\D/g,'')">
+      
+                              <div class="st_info">*商品敘述</div>
+                                  <textarea id="intro" placeholder="請描述您所銷售的產品(上限500字)"  required  maxlength="500"></textarea>
+                              <div class="st_info">*庫存數量</div>
+                                  <input type="text" id="totalcount" placeholder="請輸入庫存數量" maxlength="3" required onkeyup="if(event.keyCode !=37 && event.keyCode != 39)value=value.replace(/\D/g,'')">
+                              <div class="st_info">*可銷售數量</div>
+                                  <input type="text" id="cansalecount" placeholder="請輸入可銷售數量" maxlength="3" required onkeyup="if(event.keyCode !=37 && event.keyCode != 39)value=value.replace(/\D/g,'')">
+                              <div class="btnsave">
+                                  <input type="submit" id="save2" value="save">
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+  
+            </div>
+            
+
+        </body>
+    </html>

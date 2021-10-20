@@ -49,11 +49,14 @@ const order = require('./apis/api_order');
 app.use('/',order);
 const member = require('./apis/api_member');
 app.use('/',member);
-
-
-
-const createproduct = require('./apis/api_createproduct');
-app.use('/api',createproduct);
+const category = require('./apis/api_admin_category');
+app.use('/',category);
+const createproduct = require('./apis/api_admin_createproduct');
+app.use('/',createproduct);
+const api_admin_menu = require('./apis/api_admin_menu');
+app.use('/',api_admin_menu);
+const api_admin_searchproduct = require('./apis/api_admin_searchproduct');
+app.use('/',api_admin_searchproduct);
 
 
 
@@ -67,17 +70,28 @@ app.get('/index', function(req, res){
 });
 
 
-//後台新增商品頁面
-app.get('/createproduct/sell', function(req, res){
-    res.render('createproduct');
-});
+//後台新增或編輯商品
+//app.get('/admin_category/sell', function(req, res){
+////    res.render('admin_category');
+//});
 
-//管理者頁面 apun 08/26 add
-app.get('/admin', function(req, res){
-    res.render('admin');
-});
+//管理者登入頁面 
+///app.get('/admin_login', function(req, res){
+ //   res.render('admin_login');
+//});
 
-app.listen(5000, function(){
-    console.log('Example app listening at http://localhost:5000')
+//後台編輯分類
+//app.get('/admin_category', function(req, res){
+  //  res.render('admin_category');
+//});
+
+//後台目錄
+//app.get('/admin_menu', function(req, res){
+ //   res.render('admin_menu');
+//});
+
+
+app.listen(3000, function(){
+    console.log('Example app listening at http://localhost:3000')
   });
   
