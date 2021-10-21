@@ -144,3 +144,49 @@ exports.update_product = async function(paramsobj){
 
 
 };
+
+
+//查詢分類
+exports.loadcategory = async function(paramsobj)
+{
+  let resultobj= {};
+  let respcode="XXXX";
+  let respdata=[];
+  let respdesc ="";
+  let resptime = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
+  let result ;
+  //log
+  let log4js = utlLog.getlog4js();
+  let logger = log4js.getLogger("category");
+  try
+  {
+    result = await db.loadcategory(paramsobj);
+    result = await JSON.parse(result);
+    if(result.respdata.length != 0)
+    {
+      respcode ='0000';
+      respdata = result.respdata;
+    } 
+    else
+    {
+      respcode ='XXXX';
+      respdata = "查詢失敗！";
+    }
+  }
+  catch(message)
+  {
+      respdesc = message;
+  }
+
+  if(respcode == "XXXX") {
+      //寫入log
+      logger.error("【admin_loadcategory】" + respdesc);
+  }
+
+  resultobj.RespCode = respcode;
+  resultobj.RespTime = resptime;
+  resultobj.RespDesc = respdesc;
+  resultobj.RespData = respdata;
+
+  return resultobj;
+};

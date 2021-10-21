@@ -85,7 +85,7 @@ router.get('/searchproduct/:id',async function(req,res){
 });
 
 
-
+//編輯商品
 router.patch('/modifyproduct',upload.array('file'),async function(req,res){
   try
   {  
@@ -119,5 +119,20 @@ router.patch('/modifyproduct',upload.array('file'),async function(req,res){
   }   
   
 });
+
+//查詢分類
+router.get('/loadcategory',async function(req,res){
+    try
+    {  
+        let result = await bomodule_createproduct.loadcategory();
+        console.log(result,"============")
+        return res.end(JSON.stringify(result))
+    }
+    catch(message)
+    {
+        console.log('拒絕後跑這~~Error:'+message)
+    }   
+    
+  });
 
 module.exports = router;

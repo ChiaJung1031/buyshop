@@ -28,3 +28,11 @@ exports.update_product = async function(req)
     let resultobj = await dbhelp.executequery_no_param(update_sql);
     return resultobj;
 };
+
+//查詢分類
+exports.loadcategory = async function(req)
+{
+        let select_sql= "select * from category";
+        let resultobj =  await dbhelp.executequery_no_param(select_sql);
+        return resultobj;
+};

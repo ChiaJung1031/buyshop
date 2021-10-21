@@ -1,5 +1,5 @@
 window.onload = function(){
-
+        loadcategory();
         let menu = document.getElementById("menu");
         menu.addEventListener('click',(event)=>
         {
@@ -13,7 +13,7 @@ window.onload = function(){
              event.preventDefault();  
              let totalcount = document.getElementById("totalcount").value;
              let cansalecount = document.getElementById("cansalecount").value;
-           
+             let protypeno=document.getElementById("protypeno").value;
                  if(savelfile.length == 0)
                  {
                      alert("刊登商品至少上傳一張照片！")
@@ -21,6 +21,10 @@ window.onload = function(){
                  else if(parseInt(totalcount)<parseInt(cansalecount))
                  {
                     alert("可銷售數量不可大於庫存數量！")
+                 }
+                 else if(protypeno=="")
+                 {
+                    alert("請選擇類別！")
                  }
                  else
                  {
@@ -133,3 +137,36 @@ function deletepic(showid,picid){
 }
 
 
+//產生類別選項
+function loadcategory(){
+    fetch("/loadcategory",{
+        method:"GET"
+    }).then((response)=>{
+        return response.json();
+    }).then((data)=>{
+        if(data.RespCode =='0000')
+        {
+            let protype=document.getElementById("protype");
+            let select =document.createElement("select");
+            select.setAttribute("id","protypeno");
+            let option0=document.createElement("option");
+            option0.value = "";
+            option0.text = "請選擇分類";
+            select.appendChild(option0);
+            option0.selected = true;
+            for(let i=0;i<data.RespData.length;i++)
+            {
+                let option =document.createElement("option");
+                option.value = "g"+[i];
+                option.text = data.RespData[i].name;
+                select.appendChild(option);
+            }
+            protype.appendChild(select);
+        }
+        else
+        {
+            alert("請先新增分類！至少新增一項！")
+            window.location.href = "/admin_category";
+        }
+    });
+}
