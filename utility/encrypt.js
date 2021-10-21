@@ -12,3 +12,7 @@ let rePassword = crypto.createHash('sha256', secret)
 
   return rePassword;
 }
+
+module.exports.gentoken = function () {
+   return crypto.randomBytes(32).toString('base64').substr(0, 8);
+ }

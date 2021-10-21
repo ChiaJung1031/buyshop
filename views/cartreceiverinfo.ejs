@@ -3,7 +3,7 @@
 <head>
     <%- include('../views/template/head')-%>
 
-    <script src="../js/cart.js"></script>
+    <script src="/js/cart.js"></script>
     
 </head>
     <body>
@@ -41,7 +41,7 @@
                                                 <div class="col-3 col-md-2 pl-md-0 pl-1">
                                                     <div>
                                                       
-                                                        <a target="_blank" href="/productdtl/<%=RespData.cart.products[i].productno %>" class="soldOut"><%= RespData.cart.products[i].productname %></a>
+                                                        <a target="_blank" href="/product/detail/<%=RespData.cart.products[i].productno %>" class="soldOut"><%= RespData.cart.products[i].productname %></a>
                                                        
                                                     </div>
                                                     <div><span class="pl-2"><%= RespData.cart.products[i].intro %></span></div>
@@ -94,7 +94,8 @@
                             收件人資訊
                         </div>
                         <div class="card-body">
-                            <form class="row g-3" id='orderfrom' action="../order/insert" method="POST">
+                            <form class="row g-3" id='orderfrom' action="/order/finish"  method="POST">
+                                <div id="divalert_recpt" class="alert alert-danger d-none d-flex justify-content-center" role="alert"> </div>
                                 <div class="col-md-6">
                                   <label for="txtName" class="form-label">姓名</label>
                                   <input type="text" class="form-control" name="recptname" value='<%= RespData.receiverinfo[0].name %>'>
@@ -106,8 +107,11 @@
                                 <div class="col-12">
                                   <label for="txtAddress" class="form-label">地址</label>
                                   <input type="text" class="form-control" name="recptaddr" value='<%= RespData.receiverinfo[0].addr %>' >
+
                                 </div>
-                              
+                               <input type="text" class="form-control d-none" name="orderno" value =""  >
+                               <input type="text" class="form-control d-none" name="ordertotalPrice" value ="" >
+
                               </form>
                         </div>
                       </div>

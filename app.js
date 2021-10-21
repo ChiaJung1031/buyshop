@@ -5,6 +5,7 @@ const app = express();
 const engine = require('ejs-locals');
 var path = require('path');//1100828 ruby add
 const dotenv = require('dotenv').config();
+const cookieParser = require('cookie-parser');//1100926 ruby add
 
 // app.engine('ejs', engine);//1100828 ruby mark
 // app.set('views', './views');//1100828 ruby mark
@@ -12,6 +13,7 @@ app.set('views', path.join(__dirname, 'views'));//1100828 ruby add
 app.set('view engine', 'ejs');
 app.use(express.json()); 
 app.use(express.static(__dirname + '/static'));
+app.use(cookieParser());//1100926 ruby add
 
 app.use(express.urlencoded({extended:false}))
 //1100911 ruby 修改為限制session 30過期，secret改為抓  process.env
@@ -23,13 +25,6 @@ app.use(session({
 }))
 
 
-//1100916 ruby 每次 req 都跑這裡
-app.use((req, res, next) => {
-    console.log('req.session....')
-    if(!req.session.userid )console.log('req.session.userid is null')
-     
-    next();
-})
 
 // const user = require('./apis/api_user');
 // app.use('/api',user);
@@ -65,10 +60,10 @@ app.use('/',api_admin_login);
 
 //前台頁面
 app.get('/', function(req, res){
-    res.render('index');
+    res.redirect('/product/list');
 });
 app.get('/index', function(req, res){
-    res.render('index');
+    res.redirect('/product/list');
 });
 
 
@@ -96,4 +91,3 @@ app.get('/index', function(req, res){
 app.listen(3000, function(){
     console.log('Example app listening at http://localhost:3000')
   });
-  

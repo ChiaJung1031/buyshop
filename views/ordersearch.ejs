@@ -3,7 +3,7 @@
 <head>
     <%- include('../views/template/head')-%>
 
-    <script src="../js/ordersearch.js"></script>
+    <script src="/js/ordersearch.js"></script>
     
 </head>
     <body>
@@ -16,144 +16,156 @@
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-10 col-12 pt-3 p-0">
                         <% if (RespCode == '0000') { %>
-                            <% RespData.forEach((obj)=>{ %>
-                                <div class="border">
-                                    <div class="border-bottom p-2 ps-3 bg-light">
-                                       <div class="row">
-                                           <div class="col-8">
-                                               <span class="me-3 fw-bold">訂單編號：<%= obj.orderno %></span>
+                            <% if (RespData.length == 0) { %>
+                                 近三個月無訂單資料
+                            <%}%>
+                                <% RespData.forEach((obj)=>{ %>
+                                    <div class="border">
+                                        <div class="border-bottom p-2 ps-3 bg-light">
+                                           <div class="row">
+                                               <div class="col-8">
+                                                  
+                                                   <span class="me-3 fw-bold">訂單編號：<%= obj.orderno %></span>
+                                               </div>
+                                               <div class="col-4 text-end pe-4">
+                                                <%   if(obj.orderstatus == "訂單成立") { %>
+                                                   <span class="text-secondary fw-bold"><%= obj.orderstatus %></spna>
+                                                <% } else {  %> 
+                                                    <span class="text-secondary fw-bold text-danger"><%= obj.orderstatus %></spna>
+                                                <% }%> 
+                                               </div>
+                                             </div>
+                                          
+                                        </div>
+                                        <div class="row align-items-center p-3">
+                                           <div class="col-sm-12 col-md-5">
+                                             <div class="mb-1">
+                                               <span class="fw-bold"> 訂單日期：<%= obj.saletime %></span>
+                                              
+                                             </div> 
+                                              
                                            </div>
-                                           <div class="col-4 text-end pe-4">
-                                               <span class="text-secondary fw-bold"><%= obj.orderstatus %></spna> 
+                                           <div class="col-sm-12 col-md-3">
+                                          
+                                               <div class="p-1 fw-bold">
+                                                   共 <%=obj.ordertotalaty %> 件商品
+                                               </div>
+                                               <div class="p-1 fw-bold">
+                                                   訂單金額 <span class="px-md-0 px-1 text-danger" >NT$ <span class="order-ordertotalPrice"> <%=obj.ordertotalPrice %></span>
+                                               </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4 text-center"> 
+                                               <div class="btn-group btn-group-lg">
+                                                   <!-- 詳細 -->
+                                                   <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#collapse_<%= obj.orderno %>" aria-expanded="false" aria-controls="collapse_<%= obj.orderno %>">
+                                                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
+                                                       <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"></path>
+                                                       <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"></path>
+                                                       </svg>
+                                                       <span class="visually-hidden">Button</span>
+                                                     </button>
+                                                     <!-- 問問題 -->
+                                                   <!-- <button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="問問題">
+                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
+                                       <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+                                       <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"></path>
+                                     </svg>
+                                                     <span class="visually-hidden">Button</span>
+                                                   </button> -->
+                                                      <!-- 訂單取消 -->
+                                                      <%   if(obj.orderstatus == "訂單成立") { %>   
+                                                      <button type="button" class="btn btn-outline-secondary" onclick="ordercancel('<%=obj.orderno %>')" data-bs-toggle="tooltip" data-bs-placement="top" title="取消訂單">
+                                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                                         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                                       </svg>
+                                                       <span class="visually-hidden">Button</span>
+                                                     </button>
+                                                     <%}%>
+                                                 </div>
+                                               
+                                              
+                                            </div>
+                                        </div>
+                                   
+                                        <div class="collapse m-2" id="collapse_<%= obj.orderno %>">
+                                     
+                                               <div class="card card-body mb-3">
+                                                   <div class="row ms-3">
+                                                       <div class="col-md-6">
+                                                           <label for="txtName" class="form-label">姓名 ：</label>
+                                                           <label for="txtName" class="form-label"> <%=obj.recptname %></label>
+                                                         </div>
+                   
+                                                         <div class="col-md-6">
+                                                           <label for="txttel" class="form-label">手機號碼：</label>
+                                                           <label for="txtName" class="form-label"><%=obj.recpttel %></label>
+                                                         </div>
+           
+                                                         <div class="col-12">
+                                                           <label for="txtAddress" class="form-label">收件地址：</label>
+                                                           <label for="txtName" class="form-label"><%=obj.recptaddr %></label>
+                                                         </div>
+             
+                                                   </div>
+                                                       
+                                               </div>
+                                       
+                                           <div class="card card-body">
+                                            <% for(let i=0;i< obj.orderdetail.length ; i++) {%>
+                                                <div class="row align-items-center pt-lg-4 pt-2 pb-3 border-bottom  ms-3">
+                                                        
+                                                    <div class="col-2 col-md-3">
+                                                        <img src="<%= obj.orderdetail[i].picpath %>" width="150" height="150" alt="" id="image">
+                                                    
+                                                    </div>
+                                                    <div class="col-3 col-md-2 pl-md-0 pl-1">
+                                                        <div>
+                                                        
+                                                            <a target="_blank" href="../product/detail/<%= obj.orderdetail[i].productno %>" class="soldOut"><%= obj.orderdetail[i].productname %></a>
+                                                        
+                                                        </div>
+                                    
+                                                    </div>
+                                                
+                                                    <div class="col-2 col-md-2 pl-md-0 pl-1">
+                                                
+                                                        <div class="fw-bold text-danger "> $<%= obj.orderdetail[i].tnsunitprice %></div> 
+                                        
+                                                    </div>
+                                                    <div class="col-2 col-md-2 pl-md-0 pl-2"> <span class="px-md-3 px-1 prdct-qty-11111"><%= obj.orderdetail[i].tnscount %></span></div>
+                                                    <div class="col-2 col-md-2 pl-md-0 pl-1 fw-bold text-danger">$ <span class="prdct-subtotal-1111"><%= obj.orderdetail[i].tnstotalprice %></span></div>
+                                                    <div class="col-1 col-md-1 close" ></div>
+                                                </div>
+                                            <% }%>
+                                              
+                                                 
+                                          
+           
+                                                   <div class="row d-flex justify-content-center order">
+                                                       <div class="bg-light rounded-bottom ">
+                                                           <div class="text-end text-end p-1">
+                                                               <span class="px-md-0 px-1"> 商品金額</span><span class="px-md-0 px-1" >$ <span class="order-totalPrice"><%=obj.producttotalPrice %></span></span>
+                                                           </div>
+                                                           <div class="text-end text-end p-1">
+                                                               <span class="px-md-0 px-1"> 運費</span><span class="px-md-0 px-1 " >$ <span class="order-deliveryfee"><%=obj.deliveryfee %></span> </span>
+                                                           </div>
+                                                           <hr>
+                                                           <div class="text-end text-end p-1">
+                                                               <span class="px-md-0 px-1"> 小計 </span><span class="px-md-0 px-1 fw-bold text-danger" >NT$ <span class="order-ordertotalPrice"><%=obj.ordertotalPrice %></span></span>
+                                                           </div>
+                                                       </div>
+                                                   </div>
                                            </div>
                                          </div>
                                       
-                                    </div>
-                                    <div class="row align-items-center p-3">
-                                       <div class="col-sm-12 col-md-5">
-                                         <div class="mb-1">
-                                           <span class="fw-bold"> 訂單日期：<%= obj.saletime %></span>
-                                          
-                                         </div> 
-                                          
                                        </div>
-                                       <div class="col-sm-12 col-md-3">
-                                      
-                                           <div class="p-1 fw-bold">
-                                               共 <%=obj.ordertotalaty %> 件商品
-                                           </div>
-                                           <div class="p-1 fw-bold">
-                                               訂單金額 <span class="px-md-0 px-1 text-danger" >NT$ <span class="order-ordertotalPrice"> <%=obj.ordertotalPrice %></span>
-                                           </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-4 text-center"> 
-                                           <div class="btn-group btn-group-lg">
-                                               <!-- 詳細 -->
-                                               <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#collapse_<%= obj.orderno %>" aria-expanded="false" aria-controls="collapse_<%= obj.orderno %>">
-                                                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-card-list" viewBox="0 0 16 16">
-                                                   <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"></path>
-                                                   <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zM4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z"></path>
-                                                   </svg>
-                                                   <span class="visually-hidden">Button</span>
-                                                 </button>
-                                                 <!-- 問問題 -->
-                                               <button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="問問題">
-                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
-                                   <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
-                                   <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"></path>
-                                 </svg>
-                                                 <span class="visually-hidden">Button</span>
-                                               </button>
-                                                  <!-- 訂單取消 -->
-                                                  <button type="button" class="btn btn-outline-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="取消訂單">
-                                                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
-                                     <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
-                                   </svg>
-                                                   <span class="visually-hidden">Button</span>
-                                                 </button>
-                                             </div>
-                                           
-                                          
-                                        </div>
-                                    </div>
-                               
-                                    <div class="collapse m-2" id="collapse_<%= obj.orderno %>">
-                                 
-                                           <div class="card card-body mb-3">
-                                               <div class="row ms-3">
-                                                   <div class="col-md-6">
-                                                       <label for="txtName" class="form-label">姓名 ：</label>
-                                                       <label for="txtName" class="form-label"> <%=obj.recptname %></label>
-                                                     </div>
-               
-                                                     <div class="col-md-6">
-                                                       <label for="txttel" class="form-label">手機號碼：</label>
-                                                       <label for="txtName" class="form-label"><%=obj.recpttel %></label>
-                                                     </div>
-       
-                                                     <div class="col-12">
-                                                       <label for="txtAddress" class="form-label">收件地址：</label>
-                                                       <label for="txtName" class="form-label"><%=obj.recptaddr %></label>
-                                                     </div>
-         
-                                               </div>
-                                                   
-                                           </div>
-                                   
-                                       <div class="card card-body">
-                                        <% for(let i=0;i< obj.orderdetail.length ; i++) {%>
-                                            <div class="row align-items-center pt-lg-4 pt-2 pb-3 border-bottom  ms-3">
-                                                    
-                                                <div class="col-2 col-md-3">
-                                                    <img src="<%= obj.orderdetail[i].picpath %>" width="150" height="150" alt="" id="image">
-                                                
-                                                </div>
-                                                <div class="col-3 col-md-2 pl-md-0 pl-1">
-                                                    <div>
-                                                    
-                                                        <a target="_blank" href="/productdtl/<%= obj.orderdetail[i].productno %>" class="soldOut"><%= obj.orderdetail[i].productname %></a>
-                                                    
-                                                    </div>
-                                
-                                                </div>
-                                            
-                                                <div class="col-2 col-md-2 pl-md-0 pl-1">
-                                            
-                                                    <div class="fw-bold text-danger "> $<%= obj.orderdetail[i].tnsunitprice %></div> 
-                                    
-                                                </div>
-                                                <div class="col-2 col-md-2 pl-md-0 pl-2"> <span class="px-md-3 px-1 prdct-qty-11111"><%= obj.orderdetail[i].tnscount %></span></div>
-                                                <div class="col-2 col-md-2 pl-md-0 pl-1 fw-bold text-danger">$ <span class="prdct-subtotal-1111"><%= obj.orderdetail[i].tnstotalprice %></span></div>
-                                                <div class="col-1 col-md-1 close" ></div>
-                                            </div>
-                                        <% }%>
-                                          
-                                             
-                                      
-       
-                                               <div class="row d-flex justify-content-center order">
-                                                   <div class="bg-light rounded-bottom ">
-                                                       <div class="text-end text-end p-1">
-                                                           <span class="px-md-0 px-1"> 商品金額</span><span class="px-md-0 px-1" >$ <span class="order-totalPrice"><%=obj.producttotalPrice %></span></span>
-                                                       </div>
-                                                       <div class="text-end text-end p-1">
-                                                           <span class="px-md-0 px-1"> 運費</span><span class="px-md-0 px-1 " >$ <span class="order-deliveryfee"><%=obj.deliveryfee %></span> </span>
-                                                       </div>
-                                                       <hr>
-                                                       <div class="text-end text-end p-1">
-                                                           <span class="px-md-0 px-1"> 小計 </span><span class="px-md-0 px-1 fw-bold text-danger" >NT$ <span class="order-ordertotalPrice"><%=obj.ordertotalPrice %></span></span>
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                       </div>
-                                     </div>
-                                  
-                                   </div>
+                           
+                   
                                <br/>
                            <% })  %>
                         <% } else { %>   
-                            發生錯誤請稍後在試 。
+                            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center mt-5">發生錯誤請稍後在試 。 </div>
                         <%}%>
                     </div>
                 </div>

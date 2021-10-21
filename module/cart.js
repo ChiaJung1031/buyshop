@@ -296,9 +296,7 @@ module.exports.get_receiverinfo = async function(paramsobj){
     resultobj.RespTime = resptime;
     resultobj.RespDesc = respdesc;
     resultobj.RespData = respdata;
-    console.log('get_receiverinfo...')
-    console.log(resultobj)
-
+  
     return resultobj;
 
 
@@ -306,8 +304,6 @@ module.exports.get_receiverinfo = async function(paramsobj){
 
 
 module.exports.CART_init = function(sessioncart){
-    console.log('CART_init sessioncart...')
-    console.log(sessioncart)
 
     if(sessioncart){cart = sessioncart}
     if(cart.length == 0)

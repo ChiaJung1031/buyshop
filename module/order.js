@@ -57,7 +57,7 @@ exports.insert_order = async function(paramsobj){
 
             if(respcode == "XXXX") {
                 //寫入log
-                logger.error("insert_order" + respdesc);
+                logger.error("【insert_order】" + respdesc);
             }
 
             resultobj.RespCode = respcode;
@@ -82,6 +82,7 @@ exports.Search = async function(paramsobj){
   let result ;
   let orderlist = [];
   let orderdetail = {};
+  let orderstatus ="";
   //log
   let log4js = utlLog.getlog4js();
   let logger = log4js.getLogger("order");
@@ -107,25 +108,30 @@ exports.Search = async function(paramsobj){
         return item.orderno == x;    
       });
     
-      // let itemarray_price= array_detail.map(item=>item.tnstotalprice);
-      // let ordertotalPrice = itemarray_price.reduce((a,b)=>a+b); 
-      // let itemarray_qty= array_detail.map(item=>item.tnstotalprice);
-      // let ordertotalaty = itemarray_qty.reduce((a,b)=>a+b); 
 
 
       let obj ={};
       obj.orderno = x;
       obj.saletime = dateFormat(array_detail[0].saletime, "yyyy-mm-dd") ;
-      obj.orderstatus = array_detail[0].reftyn == "Y" ? "訂單取消":  array_detail[0].reftyn == "N" ?"訂單成立" : "";
 
+      //payyn = Y 已付款、payyn = N 尚未付款
+      //reftyn= Y 取消訂單、reftyn = N 未取消訂單(訂單成立)
+      //1.reftyn = N  payyn = N  =>訂單成立 && 尚未付款 =>訂單成立  **因為沒有串物流所以有沒有付款都算訂單成立就好
+      //2.reftyn = N  payyn = Y  =>訂單成立 && 已付款   =>準備出貨
+      //3.reftyn = Y  payyn = Y  =>取消訂單 && 已付款   =>退款/退貨
+      //4.reftyn = Y  payyn = N  =>取消訂單 && 尚未付款 =>取消訂單
+      if(array_detail[0].reftyn == "N") orderstatus ="訂單成立";
+      else if(array_detail[0].reftyn == "Y" &&  array_detail[0].payyn == "Y")orderstatus ="退款/退貨";
+      else if(array_detail[0].reftyn == "Y" &&  array_detail[0].payyn == "N")orderstatus ="取消訂單";
+ 
+      obj.orderstatus = orderstatus;
+ 
 
       obj.deliveryfee = array_detail[0].deliveryfee;
       obj.recptname = array_detail[0].recptname;
       obj.recpttel = array_detail[0].recpttel;
       obj.recptaddr = array_detail[0].recptaddr;
 
-      console.log('array_detail....')
-      console.log(array_detail)
 
       let ordertotalqty = 0;
       let ordertotalPrice = 0;
@@ -145,9 +151,6 @@ exports.Search = async function(paramsobj){
         }
 
         obj.orderdetail.push(obj_detail)
-
-        console.log('obj_detail....')
-        console.log(obj_detail)
       })
 
       obj.producttotalPrice = ordertotalPrice;
@@ -175,7 +178,7 @@ exports.Search = async function(paramsobj){
 
   if(respcode == "XXXX") {
       //寫入log
-      logger.error("Search" + respdesc);
+      logger.error("【Search】" + respdesc);
   }
 
   resultobj.RespCode = respcode;
@@ -183,11 +186,63 @@ exports.Search = async function(paramsobj){
   resultobj.RespDesc = respdesc;
   resultobj.RespData = respdata;
 
-  console.log('resultobj....')
-  console.log(resultobj)
 
   return resultobj;
 
 
 };
 
+
+exports.cancel = async function(paramsobj){
+
+  let resultobj= {};
+  let respcode="XXXX";
+  let respdata = [];
+  let respdesc ="";
+  let resptime = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
+  let result ;
+  let orderlist = [];
+  let orderdetail = {};
+
+  //log
+  let log4js = utlLog.getlog4js();
+  let logger = log4js.getLogger("order");
+  try
+  {
+    let info = {
+        "orderno": paramsobj.orderno ,
+        "updatetime" : resptime  
+      };
+
+
+    result = await db.cancel_order(info);
+    result = await JSON.parse(result);
+
+    //準備輸出的資料
+    if(result.respdata.affectedRows > 0) respcode ='0000';
+     
+     
+     
+
+  }
+  catch(message)
+  {
+   
+      respdesc = message;
+  }
+
+  if(respcode == "XXXX") {
+      //寫入log
+      logger.error("【cancel】" + respdesc);
+  }
+
+  resultobj.RespCode = respcode;
+  resultobj.RespTime = resptime;
+  resultobj.RespDesc = respdesc;
+  resultobj.RespData = respdata;
+
+
+  return resultobj;
+
+
+};
