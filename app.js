@@ -57,6 +57,8 @@ const api_admin_menu = require('./apis/api_admin_menu');
 app.use('/',api_admin_menu);
 const api_admin_searchproduct = require('./apis/api_admin_searchproduct');
 app.use('/',api_admin_searchproduct);
+const api_admin_login = require('./apis/api_admin_login');
+app.use('/',api_admin_login);
 
 
 

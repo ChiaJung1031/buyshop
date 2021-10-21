@@ -52,7 +52,7 @@ window.onload = function(){
                      }).then((data)=>{
                          if(data["RespCode"] == "0000"){
                              alert("刊登商品成功！")
-                             window.location.href = "/admin_createproduct";
+                            
                          }
                          else
                          {
