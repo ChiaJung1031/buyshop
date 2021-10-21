@@ -1,10 +1,10 @@
 const express = require('express');
-const session=require('express-session')
-const querystring = require('querystring'); 
+const router = express.Router();
+const bomodule_createproduct = require('../module/admin_createproduct');
 const dateFormat = require("dateformat");
-const db = require('../DAO/sql_createproduct.js');
 const aws = require('../awsS3.js');
 require('dotenv').config()
+
 //上傳照片會用到
 const multer  = require('multer');
 var storage = multer.diskStorage({
@@ -20,24 +20,20 @@ var upload = multer({storage})
 const app = express();
 app.use(express.json()); 
 app.use(express.urlencoded({extended:false}))
-app.use(session({
-    secret:'keyboard cat',
-    resave:false,
-    saveUninitialized:true
-}))
 
 const formData = require('express-form-data');
 app.use(formData.parse());
-const router = express.Router();
 const CDN=process.env.AWS_CDN
 
+router.get('/admin_createproduct',async function (req, res) {
+    return res.render('admin_createproduct');
+});
 
-
-router.post('/createproduct/:id',upload.array('file'),async function(req,res){
+//新增商品
+router.post('/createproduct',upload.array('file'),async function(req,res){
     try
-    {  
+    {                                                                                    
         let myfile = req.files;
-        console.log("~~~~~~~~~~~~~~~~~~~~~~~~",myfile)
         let picture ="";
         let allurl="";
         for(let i=0;i<myfile.length;i++){
@@ -60,8 +56,7 @@ router.post('/createproduct/:id',upload.array('file'),async function(req,res){
             "createdatetime":datetime,
             "updatedatetime":datetime
         };
-        let result = await db.upload_pro(product_info);
-        result = await JSON.parse(result);
+        let result = await bomodule_createproduct.create_product(product_info);
         res.end(JSON.stringify(result))
         
     }
@@ -72,18 +67,15 @@ router.post('/createproduct/:id',upload.array('file'),async function(req,res){
     
 });
 
-
-router.get('/createproduct/:id',async function(req,res){
+//查詢商品
+router.get('/searchproduct/:id',async function(req,res){
   try
   {  
       let proid=req.params.id;
       let info={"proid":proid};
-      let result = await db.get_uploadpro(info);
-      result = await JSON.parse(result);
-      if(result["error"] == null)
-      {
-          res.end(JSON.stringify(result))
-      }
+      let result = await bomodule_createproduct.search_product(info);
+      console.log(result,"============")
+      return res.end(JSON.stringify(result))
   }
   catch(message)
   {
@@ -93,20 +85,20 @@ router.get('/createproduct/:id',async function(req,res){
 });
 
 
-
-router.patch('/createproduct/:id',upload.array('file'),async function(req,res){
+//編輯商品
+router.patch('/modifyproduct',upload.array('file'),async function(req,res){
   try
   {  
       let myfile = req.files;
       let resultpic ="";
       let allurl="";
+      let datetime=dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
       for(let i=0;i<myfile.length;i++){
           resultpic=await aws.uploadtoS3(myfile[i]);
           allurl+= CDN + resultpic.key +",";
       }
-      let all_photo=req.body["existfile"]+allurl;
       let product_info = {
-          "id":req.params.id,
+          "productno": req.body["productno"],
           "protypeno": req.body["protypeno"],
           "productname": req.body["productname"],
           "unitprice": req.body["unitprice"],
@@ -116,13 +108,10 @@ router.patch('/createproduct/:id',upload.array('file'),async function(req,res){
           "totalcount": req.body["totalcount"],
           "cansalecount": req.body["cansalecount"],
           "picpath": allurl,
+          "updatedatetime":datetime
       };
-      let result = await db.update_pro(product_info);
-      result = await JSON.parse(result);
-      if(result["error"] == null)
-      {
-          res.end(JSON.stringify(result))
-      }
+      let result = await bomodule_createproduct.update_product(product_info);
+      res.end(JSON.stringify(result))
   }
   catch(message)
   {
@@ -130,5 +119,20 @@ router.patch('/createproduct/:id',upload.array('file'),async function(req,res){
   }   
   
 });
+
+//查詢分類
+router.get('/loadcategory',async function(req,res){
+    try
+    {  
+        let result = await bomodule_createproduct.loadcategory();
+        console.log(result,"============")
+        return res.end(JSON.stringify(result))
+    }
+    catch(message)
+    {
+        console.log('拒絕後跑這~~Error:'+message)
+    }   
+    
+  });
 
 module.exports = router;

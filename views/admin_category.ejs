@@ -1,0 +1,92 @@
+<style>
+    .title{
+        font-size: 30px;
+      }
+      /*  table-outbox
+------------------------------------- */
+.table-outbox {
+    margin-top: 15px;
+  }
+  
+  /*  table
+  ------------------------------------- */
+  table {
+    border-collapse: collapse; /* 表格邊框合併 */
+    width: 315px; 
+    background-color: white; /* 背景白色 */
+    margin-bottom: 220px;
+  }
+  
+  table thead th {
+    color: #ffffff; /* 表頭文字白色 */
+    background: #2f4961a3; /* 表頭背景白色 */
+  }
+  
+  table td,
+  table th {
+    text-align: center; /* 文字置中顯示 */
+    padding: 10px; /* 添加內距 */
+  }
+  
+  table td {
+    border-right: 1px solid #f1f1f1; /* 表格 td 右邊框顏色 */
+  }
+  
+  table tr:nth-child(even) {
+    background: #f8f8f8; /* 表格偶數 tr 灰色背景 */
+  }
+    
+</style>
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <meta charest="utf-8" />
+             <!-- adminCSS -->
+            <link rel="stylesheet" type="text/css" href="/css/admin_category.css" />
+            <title>後台管理</title>
+            <!-- adminJS -->
+            <script src="/js/admin_category.js"></script>
+        </head>
+        <body>
+            <div>
+                <div class="login">
+                  <input type="submit" id="menu" value="回目錄"><br><br>
+                    <label class="title">分類管理</label><br><br><br><br>
+                    <!--新增分類-->
+                    <label class="">※新增規則：<br>
+                      1.請輸入【分類名稱】及【排序號碼】，並且點選【新增】按鈕<br>
+                      2.若排序號碼有重複，下方表格會依照分類名稱筆畫做排序<br><br>	
+                    </label>
+                    <input type="text" id="new_cate" placeholder="請輸入分類名稱" required> &nbsp
+                    <input type="text" id="new_no" placeholder="請輸入排序號碼(填數字)" onkeyup="if(event.keyCode !=37 && event.keyCode != 39)value=value.replace(/\D/g,'')" required> &nbsp
+                    <button onclick="createcate()">新增</button> <br><br>
+                    <!--刪除分類-->       
+                    <label class="">※刪除規則：<br>
+                            1.請輸入【完整的分類名稱】，並且點選【刪除】按鈕
+                    </label><br><br>
+                            <input type="text" id="dele_cate" placeholder="請輸入分類名稱" required> &nbsp
+                    <button onclick="deletecate()">刪除</button><br><br>
+
+                    <div class="table-outbox">
+                        <table id="table">
+                          <thead>
+                            <tr>
+                              <th>分類名稱</th>
+                              <th>排序</th>
+                            </tr>
+                          </thead>
+                          <tbody id="tbody">
+                        <!--
+                            <tr>
+                              <td>title-1</td>
+                              <td>content-1</td>
+                            </tr>
+                        -->
+                          </tbody>
+                        </table>
+                      </div>
+    
+                </div>
+            </div>
+        </body>
+    </html>

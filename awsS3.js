@@ -19,7 +19,7 @@ const s3 = new AWS.S3({
 function uplodafile(file){
         const fileContent = fs.createReadStream(file.path)
         const params = {
-            Bucket: "bucketsell", 
+            Bucket: "buyshop", 
             Body: fileContent, 
             Key: file["originalname"] 
           };
