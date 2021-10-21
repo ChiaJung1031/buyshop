@@ -218,7 +218,7 @@ function loadcategory(){
             for(let i=0;i<data.RespData.length;i++)
             {
                 let option =document.createElement("option");
-                option.value = "g"+[i];
+                option.value = data.RespData[i].categoryno;
                 option.text = data.RespData[i].name;
                 select.appendChild(option);
             }

@@ -52,7 +52,7 @@ window.onload = function(){
                      }).then((data)=>{
                          if(data["RespCode"] == "0000"){
                              alert("刊登商品成功！")
-                            
+                             window.location.href = "/admin_createproduct";
                          }
                          else
                          {
@@ -157,7 +157,7 @@ function loadcategory(){
             for(let i=0;i<data.RespData.length;i++)
             {
                 let option =document.createElement("option");
-                option.value = "g"+[i];
+                option.value = data.RespData[i].categoryno;
                 option.text = data.RespData[i].name;
                 select.appendChild(option);
             }

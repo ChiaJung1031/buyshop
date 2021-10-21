@@ -59,7 +59,6 @@ exports.create_category = async function(paramsobj){
     {
 
       //建立分類
-      console.log("APUN看~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",paramsobj)
       let checkname = {"catename":paramsobj["catename"]};
       let info = {"catename":paramsobj["catename"],"new_no":paramsobj["new_no"],"createdatetime":resptime,"updatetime":resptime};
       result_name = await db.select_category(checkname);
@@ -119,22 +118,18 @@ exports.delete_category = async function(paramsobj){
   {
 
     //刪除分類
-    console.log("APUN看刪除分類~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",paramsobj)
     let info = {"catename":paramsobj["catename"]}
     result = await db.delete_category(info);
-    console.log("APUN看BO的LOG~~~~~~~",result)
     result=JSON.parse(result);
-    console.log("APUN看BO的LOG!!!~~~~",result.respdata)
     if(result.respdata.affectedRows== 1)
     {
-      //新增資料成功，準備輸出的資料
       respcode ='0000';
       respdata = "刪除成功！";
     }
     else
     {
       respcode ='XXXX';
-      respdata = "請輸入正確的分類名稱！";
+      RespDesc = "請輸入正確的分類名稱！";
     }
   }
   catch(message)
@@ -152,5 +147,44 @@ exports.delete_category = async function(paramsobj){
   resultobj.RespDesc = respdesc;
   resultobj.RespData = respdata;
 
+  return resultobj;
+};
+
+//查詢分類裡是否有商品
+exports.check_category = async function(categoryname){
+  let resultobj= {};
+  let respcode="XXXX";
+  let respdata=[];
+  let respdesc ="";
+  let resptime = dateFormat(new Date(), "yyyy-mm-dd HH:MM:ss");
+  let result_name ;
+  //log
+  let log4js = utlLog.getlog4js();
+  let logger = log4js.getLogger("category");
+  try
+  {
+     result_name = await db.check_category(categoryname);
+     result_name = await JSON.parse(result_name);
+     if(result_name.respdata.length != 0)
+     {
+        respcode="XXXX_D";
+        respdata = "不可刪除該分類！";
+     }
+     else
+     {
+        respcode="0000";
+        respdata = result_name.respdata;
+     }
+    
+  }
+  catch(message)
+  {
+      respdesc = message;
+  }
+
+  resultobj.RespCode = respcode;
+  resultobj.RespTime = resptime;
+  resultobj.RespDesc = respdesc;
+  resultobj.RespData = respdata;
   return resultobj;
 };

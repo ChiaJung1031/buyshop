@@ -101,7 +101,11 @@ function deletecate()
                         alert("刪除成功！")
                         location.reload();
                     }
-                    else
+                    else if(data.RespCode =='XXXX_D')
+                    {
+                        alert("該分類下有商品，請先刪除商品才能刪除分類！")
+                    }
+                    else if(data.RespCode =='XXXX')
                     {
                         alert("請輸入正確的分類名稱！")
                     }

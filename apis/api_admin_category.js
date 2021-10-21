@@ -29,8 +29,18 @@ router.post('/new_category',async function(req,res){
 router.patch('/delete_category',async function(req,res){
     let catename = req.body["catename"]; //要刪除的分類名稱
     let info = {"catename":catename} 
-    let result_category =  await bomodule_category.delete_category(info);
-    return res.end(JSON.stringify(result_category))
+    let result_check_category =  await bomodule_category.check_category(info);
+    console.log(result_check_category,"##################################")
+    if(result_check_category.RespCode == "XXXX_D")//此分類下有商品，不可刪除
+    {
+        return res.end(JSON.stringify(result_check_category))
+    }
+    else
+    {
+        let result_category =  await bomodule_category.delete_category(info);
+        return res.end(JSON.stringify(result_category))
+    }
+   
 });
 
 
