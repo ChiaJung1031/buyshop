@@ -1,9 +1,4 @@
 const dateFormat = require("dateformat");
-
-
-// const config = require('../config/conn.js');//　載入conn.js模組
-// const mysql = require('mysql2/promise')
-
 const dbhelp = require("../utility/dbhelp")
 
 exports.insert_order = async function (req) {
@@ -51,10 +46,6 @@ exports.insert_order = async function (req) {
  
 
     let resultobj =  await dbhelp.executequery_use_tran(queries,queryValues);
-
-    console.log('executequery_use_tran resultobj....')
-    console.log(resultobj)
-
 
     return resultobj;
    
@@ -142,11 +133,11 @@ exports.insert_order = async function (req) {
     // }
 }
 
-//取得會員資料
+//取得訂單資料
 exports.get_order = async function(req)
 {
-    console.log(req)
-    let select_sql= "select a1.orderno,a1.saletime,a1.deliveryfee,a1.recptname,a1.recpttel,a1.recptaddr,a1.reftyn,";
+
+    let select_sql= "select a1.orderno,a1.saletime,a1.deliveryfee,a1.recptname,a1.recpttel,a1.recptaddr,a1.reftyn,a1.payyn, ";
     select_sql += "b2.productno,b2.productname,b2.tnstotalprice,b2.tnscount,c3.picpath ";
     select_sql += "from orderlist as a1 ";
     select_sql += "left join  orderdetail as b2 on (a1.orderno = b2.orderno) ";
@@ -161,4 +152,33 @@ exports.get_order = async function(req)
     return resultobj;
 
 }
+
+//取得訂單資料
+exports.get_order_by_orderno = async function(req)
+{
+  
+    let select_sql= "select * from orderlist where orderno = ?";
+    
+    let array_param = [req["orderno"]]
+            
+    let resultobj =  await dbhelp.executequery(select_sql,array_param);
+
+    return resultobj;
+
+}
+
+//取消訂單
+exports.cancel_order = async function(req)
+{
+    console.log(req)
+    let _sql= "update orderlist set reftyn ='Y',updatetime =? where orderno = ?";
+    
+    let array_param = [req["updatetime"],req["orderno"]]
+            
+    let resultobj =  await dbhelp.executequery(_sql,array_param);
+
+    return resultobj;
+
+}
+
 

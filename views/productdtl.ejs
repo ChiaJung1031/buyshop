@@ -3,7 +3,7 @@
 <head>
     <%- include('../views/template/head')-%>
 
-    <script src="../js/productlistdtl.js"></script>
+    <script src="/js/productlistdtl.js"></script>
 </head>
     <body>
         <!-- Navigation-->
@@ -64,10 +64,6 @@
                                     <option value="<%= j %>"><%=j %></option>
                                   <%}%>
                                   </select>
-                              <% } else { %>  
-                                已銷售一空
-                              <%}%>
-                       
                             </div>
                             <div class="col-auto"> 
                     
@@ -75,12 +71,15 @@
                                    <i class="bi-cart-fill me-1"></i>
                                    加入購物車
                                 </button>
-                              </div>
+                            </div>
+                              <% } else { %>  
+                                <span style="font-weight: bolder;color: #e34e4e;font-size: larger;">已銷售一空</span>
+                              <%}%>
                         </div>
                       
                     </div>
                    <% } else { %>   
-                      發生錯誤請稍後在試 。
+                    <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center mt-5">發生錯誤請稍後在試 。 </div>
                   <%}%>
                 </div>
                

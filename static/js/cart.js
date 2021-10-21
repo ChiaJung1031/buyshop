@@ -70,7 +70,7 @@ function  addbyOne(id){
 function  removeItem(id){
     let prdct = document.getElementsByClassName('products-'+id+'')[0]
     let order = document.getElementsByClassName('order')[0]
-    console.log(prdct)
+  
         fetch("/cart/removeItem/" + id  , {
             method:"GET"
         }).then((response)=>{
@@ -90,27 +90,72 @@ function  removeItem(id){
         });
         
     }
+
     
-    function changepage(index)
+    function  checklogin(){   
+        fetch("/member/check_login", {
+            method:"GET"
+        }).then((response)=>{
+            return response.json();
+        }).then((data)=>{
+              if(data.RespCode =='0000')
+              {
+                  if(data.RespData.islogin) window.location.href ="../cart/receiverinfo"
+                  else  document.getElementById("btnLoginShow").click();
+              }
+        });  
+    }
+
+        
+    function changepage(index)///member/check_login
     {
-        let urlarray =['../cart','../cart/receiverinfo','../productlist/A?nowpage=1'] 
+        let urlarray =['../cart','../product/list'] 
          window.location.href = urlarray[index]
     }
 
      function orderinsert()
      {
-         if( document.getElementsByName("recptname")[0].value !='' &&
-         document.getElementsByName("recpttel")[0].value !='' && 
-         document.getElementsByName("recptaddr")[0].value!='' )
-        {
-            document.getElementById("orderfrom").submit();
-
-
-        }
-        else
-        {
-            alert("收件人資訊，請填寫完整。")
-        }
+        let recptname = document.getElementsByName("recptname")[0].value ;
+        let recpttel =  document.getElementsByName("recpttel")[0].value ;
+        let recptaddr = document.getElementsByName("recptaddr")[0].value ;
+    
+        let info = {
+                        "recptname":recptname,
+                        "recpttel":recpttel,
+                        "recptaddr":recptaddr
+                    };
+        
+        hide("divalert_recpt");
+        fetch("/order/insert",{
+            method:"POST",   
+            body: JSON.stringify(info),
+            headers: {
+                "Content-Type": "application/json"
+                }
+            }).then((response)=>{
+                return response.json();
+            }).then((data)=>{
+                if(data["RespCode"] == '0000'){
+                    
+                 document.getElementsByName("orderno")[0].value = data["RespData"].orderno;
+                 document.getElementsByName("ordertotalPrice")[0].value = data["RespData"].ordertotalPrice ;
+                   
+                document.getElementById("orderfrom").submit();
+                
+                }
+                else if(data["RespCode"] == 'XXXX')
+                {
+                    alert("修改失敗，請稍後再試！")
+                }
+                else if(data["RespCode"] == 'S001')
+                {
+                    location.href = "/cart";
+                }
+                else{
+                     document.getElementById("divalert_recpt").innerHTML = data["RespDesc"];
+                     Show("divalert_recpt")
+                }
+            })
         
 
      }

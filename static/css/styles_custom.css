@@ -211,3 +211,18 @@ hr {
       min-height: 100vh;
   }
 
+ul.horizontal-list{
+    list-style: none;
+    margin-bottom: 0px;
+    padding-left: 0px;
+}
+
+ul.horizontal-list > li{
+    display: inline-block;
+    padding: 3px;
+    width:  90px;
+}
+
+
+
+

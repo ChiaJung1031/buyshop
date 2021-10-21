@@ -3,7 +3,7 @@
 <head>
     <%- include('../views/template/head')-%>
 
-    <script src="../js/productlist.js"></script>
+    <script src="/js/productlist.js"></script>
 </head>
     <body>
         <!-- Navigation-->
@@ -12,20 +12,27 @@
       
         <section>
             <div class="container px-4 px-lg-5 mt-5">
-                <p class="fs-6 mb-3">找到 <%=RespData.totalcnt %> 件
-                     <% if (RespData.length > 0) {%>
-                       "<%= RespData[0].categoryname  %>" 
-                    <%}%>   商品</p>
+                <p class="fs-6 mb-3">找到 <%=RespData.totalcnt %> 件 "<%= RespData.findname  %>" 商品</p>
+                        
+                   
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <% if (RespCode == '0000') { %>                
                         <% if(RespData.length > 0){ %>
                             <%  RespData.forEach(function(item) { %>
                                 <div class="col mb-5">
                                     <div class="card">
-                                        <!-- Product image-->
-                                        <a class="text-decoration-none"  href="../productdtl/<%=item.productno %>" title="<%=item.productname %>">
-                                            <img class="card-img-top" src="<%=item.picpath %>" alt="<%=item.productname %>" />
-                                        </a>
+                                        <div style="position:relative;">
+                                         <!-- Product image-->
+                                             <a class="text-decoration-none"  href="/product/detail/<%=item.productno %>" title="<%=item.productname %>">
+                                                 <img class="card-img-top" src="<%=item.picpath %>" alt="<%=item.productname %>" />
+                                             </a>
+                                             <% if(item.cansalecount == 0){ %>
+                                                <div style="position:absolute;z-indent:2;right:0;top:0;padding: 10px;font-weight: bolder;color: #e34e4e;font-size: larger;">
+                                                    完售
+                                                </div>
+                                            <%}%> 
+                                         </div>
+                                       
                                         <!-- Product details-->
                                         <div class="card-body p-4">
                                             <div class="text-center">
@@ -48,7 +55,7 @@
                         <% } %>
                            
                     <% } else { %>   
-                          發生錯誤請稍後在試 。
+                        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center mt-5">發生錯誤請稍後在試 。 </div>
 
                     <% } %>
                           

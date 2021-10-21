@@ -20,9 +20,6 @@ module.exports.genresultobj = function (lstrrespdesc,respcode) {
    }
 
    
-
-   console.log('genresultobj....')
-   console.log(resultobj)
    return resultobj;
 }
 
